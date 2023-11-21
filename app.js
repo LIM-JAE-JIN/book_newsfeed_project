@@ -9,4 +9,4 @@ app.get('/', (req, res) => {
 
 app.listen(SERVER_PORT, () => {
   console.log(SERVER_PORT, '포트 연결 성공');
-})
+});
