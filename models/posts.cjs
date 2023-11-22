@@ -1,6 +1,6 @@
 'use strict';
 const { Model } = require('sequelize');
-const { User } = require('./index.cjs');
+const { Users } = require('./index.cjs');
 module.exports = (sequelize, DataTypes) => {
   class Posts extends Model {
     /**
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       userId: {
         references: {
-          model: User,
+          model: Users,
           key: 'userId',
         },
         type: DataTypes.INTEGER,
