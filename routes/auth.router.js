@@ -2,11 +2,11 @@ import express from 'express';
 import validator from 'validator';
 import { Op } from 'sequelize';
 import model from '../models/index.cjs';
-const { User } = model;
+const { Users } = model;
 const authRouter = express.Router();
 
 //signup
-authRouter.post('/signup', async (req, res) => {
+authRouter.post('/auth/signup', async (req, res) => {
   if (
     req.body === null ||
     typeof req.body !== 'object' ||
@@ -42,7 +42,7 @@ authRouter.post('/signup', async (req, res) => {
     });
   }
   // email or username이 이미 있는지 확인
-  const existsUsers = await User.findAll({
+  const existsUsers = await Users.findAll({
     where: {
       [Op.or]: [{ email }, { username }],
     },
@@ -70,7 +70,7 @@ authRouter.post('/signup', async (req, res) => {
   //window.location.href = "/";
 });
 
-authRouter.get('/', async (req, res) => {
+authRouter.get('/auth', async (req, res) => {
   res.send('Hello this is auth');
 });
 
