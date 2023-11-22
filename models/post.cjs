@@ -1,8 +1,8 @@
 'use strict';
 const { Model } = require('sequelize');
-import { User } from './index.cjs';
+const { User } = require('./index.cjs');
 module.exports = (sequelize, DataTypes) => {
-  class Post extends Model {
+  class Posts extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Post.belongsTo(models.User, {
+      Posts.belongsTo(models.User, {
         targetKey: 'userId',
         foreignKey: 'userId',
       });
     }
   }
-  Post.init(
+  Posts.init(
     {
       postId: {
         primaryKey: true,
@@ -25,7 +25,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       title: DataTypes.STRING,
       body: DataTypes.STRING,
-      genre: DataTypes.STRING,
+      genre: {
+        type: DataTypes.ENUM('literature', 'essay', 'magazine', 'nonfiction'),
+      },
       userId: {
         references: {
           model: User,
@@ -39,5 +41,5 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Post',
     },
   );
-  return Post;
+  return Posts;
 };

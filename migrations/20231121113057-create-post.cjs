@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       genre: {
-        type: Sequelize.STRING,
+        type: Sequelize.ENUM('literature', 'essay', 'magazine', 'nonfiction'),
       },
       userId: {
         type: Sequelize.INTEGER,
