@@ -1,8 +1,8 @@
 'use strict';
+const bcrypt = require('bcrypt');
 const { Model } = require('sequelize');
-import bcrypt from 'bcrypt';
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Users extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init(
+  Users.init(
     {
       userId: {
         primaryKey: true,
@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   );
 
-  User.beforeCreate(async (user) => {
+  Users.beforeCreate(async (user) => {
     const salyRoundKey = parseInt(process.env.SALT_ROUND_KEY);
     const hashedPasswd = await bcrypt.hash(user.password, salyRoundKey);
     user.password = hashedPasswd;
   });
-  return User;
+  return Users;
 };
