@@ -1,6 +1,7 @@
 'use strict';
 const bcrypt = require('bcrypt');
 const { Model } = require('sequelize');
+require('dotenv').config();
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     /**
@@ -31,7 +32,10 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Users.beforeCreate(async (user) => {
-    const hashedPasswd = await bcrypt.hash(user.password, SALT_ROUND_KEY);
+    const hashedPasswd = await bcrypt.hash(
+      user.password,
+      parseInt(process.env.SALT_ROUND_KEY),
+    );
     user.password = hashedPasswd;
   });
   return Users;
