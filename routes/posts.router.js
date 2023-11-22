@@ -1,56 +1,129 @@
 import express from 'express';
+// import Posts from '../models/posts.cjs'
+import model from '../models/index.cjs';
 
+const { Posts, Users } = model;
 const router = express.Router();
 
-router.get('/posts/:userId', async (req, res) => {
-  const { userId } = req.params;
-  const category = req.query.category ? req.query.category.toUpperCase() : null;
-  // const category_name = await Posts.findOne({
-  //   where: { genre: genre },
-  // });
-  const category_name = 'NOVEL';
-  // const posts = await Posts.findAll()
+router.post('/post', async (req, res) => {
+  try {
+    const { title, body, genre } = req.body;
 
-  if (category === null) {
-    console.log(userId);
-    return res.status(200).json({
-      message: `${userId} 게시글 조회 성공`,
-      // data: userId.posts,
+    // const userId = res.locals.user.id;
+
+    if (!title || !body || !genre) {
+      return res.json({ errorMessage: '정확히 입력하세요.' });
+    }
+
+    const post = await Posts.create({
+      // userId,
+      title,
+      body,
+      genre,
     });
-  } else if (category === category_name) {
-    return res.status(200).json({
-      message: `${userId} 게시글 ${category_name} 목록 조회 성공`,
-      // data: category_posts,
+
+    res.status(201).json({
+      message: '게시글이 생성 되었습니다.',
+      data: post,
+      // userId: userId,
     });
+  } catch (error) {
+    console.log(error);
   }
 });
 
 router.get('/posts', async (req, res) => {
-  const category = req.query.category ? req.query.category.toUpperCase() : null;
-  // const category_name = await Posts.findOne({
-  //   where: { genre: genre },
+  const category = req.query.category ? req.query.category.toLowerCase() : null;
+  const { userId } = res.locals.user;
+  const posts = await Posts.findAll();
+
+  // const user = await Users.findOne({
+  //   where: { userId: userId },
   // });
-  const category_name = 'NOVEL';
-  // const posts = await Posts.findAll();
+
+  const category_posts = await Posts.findAll({
+    where: { genre: category },
+  });
+
+  const category_newsfeed = await category_posts.filter((post) => {
+    return userId !== post.userId;
+  });
+
+  const newsfeed = await posts.filter((post) => {
+    return userId !== post.userId;
+  });
+
   if (category === null) {
     return res.status(200).json({
       message: '게시글 전체 목록 조회 성공',
-      // data: posts,
+      data: newsfeed,
     });
-  } else if (category === category_name) {
+  }
+
+  if (category_newsfeed.length > 0) {
     return res.status(200).json({
-      message: `게시글 ${category_name} 목록 조회 성공`,
-      // data: posts,
+      message: `게시글 ${category} 목록 조회 성공`,
+      data: category_newsfeed,
     });
-  } else if (category !== category_name) {
+  } else if (category_newsfeed.length === 0) {
     return res.status(400).json({
-      message: '장르가 없습니다.',
+      message: '현재 장르에 대한 게시물이 없습니다.',
     });
   }
 });
 
-// 카테고리가 null 이면 전체 목록 보여주기 id상관 없이
-// userId 별로 보여준다면 req.params를 통해 userId에 포스트 보여주기
-// 카테고리에 맞는 것을 보여준다면 카테고리를 받아와 전달해주기..?
+// 로그인하고 게시글 볼 수 잇게,
+// 내 정보에서 내 게시글
+// 로그인 했을 때 다른 사람 게시글만 보이게
 
 export default router;
+
+// 유저 별로 게시글 보이게 하기 (보류)
+// router.get('/posts/:userId', async (req, res) => {
+//   const { userId } = req.params;
+
+//   const category = req.query.category ? req.query.category.toLowerCase() : null;
+
+//   // const category_posts = await Posts.findAll({
+//   //   where: { genre: category },
+//   // });
+
+//   const posts = await Posts.findAll();
+
+//   const user_id = await Posts.findOne({
+//     where: { userId: userId },
+//   });
+
+//   const user_posts = posts.filter((user) => {
+//     return user.userId === userId;
+//   });
+
+//   res.json({
+//     user_post: user_posts,
+//     user: user_id,
+//   });
+
+//   // if (posts.dataValues.userId === Number(userId)) {
+//   //   if (category === null) {
+//   //     res.status(200).json({
+//   //       message: `${userId} 전체 게시글 조회 성공`,
+//   //       data: category_posts,
+//   //     });
+//   //   }
+
+//   //   if (category_posts.length > 0) {
+//   //     return res.status(200).json({
+//   //       message: `게시글 ${category} 목록 조회 성공`,
+//   //       data: category_posts,
+//   //     });
+//   //   } else if (category_posts.length === 0) {
+//   //     return res.status(400).json({
+//   //       message: `현재 ${userId}는 장르에 대한 게시물이 없습니다.`,
+//   //     });
+//   //   }
+//   // } else if (userId !== user.dataValues.userId) {
+//   //   res.status(400).json({
+//   //     message: '존재하지 않은 회원입니다.',
+//   //   });
+//   // }
+// });
