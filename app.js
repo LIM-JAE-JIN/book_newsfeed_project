@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api', [authRouter, profileRouter]);
-app.use(express.static("./assets"));
 
+app.use(express.static("./assets"));
 app.get("/", (req, res) => {
   try {
     res.json({
@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
     })
   }
 })
+
 
 app.listen(SERVER_PORT, () => {
   console.log(SERVER_PORT, '포트 연결 성공');
