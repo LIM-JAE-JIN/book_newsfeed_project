@@ -8,15 +8,24 @@ const router = express.Router();
 router.post('/post', async (req, res) => {
   try {
     const { title, body, genre } = req.body;
-
+    const arr_genre = Posts.rawAttributes.genre.type.values;
     // const userId = res.locals.user.id;
 
     if (!title || !body || !genre) {
-      return res.json({ errorMessage: '정확히 입력하세요.' });
+      return res.status(400).json({ errorMessage: '정확히 입력하세요.' });
+    }
+
+    const exist_genre = arr_genre.filter((g) => {
+      return g === genre;
+    });
+
+    if (!exist_genre.length) {
+      return res.status(400).json({
+        message: '존재하지 않는 장르입니다.',
+      });
     }
 
     const post = await Posts.create({
-      // userId,
       title,
       body,
       genre,
@@ -25,7 +34,6 @@ router.post('/post', async (req, res) => {
     res.status(201).json({
       message: '게시글이 생성 되었습니다.',
       data: post,
-      // userId: userId,
     });
   } catch (error) {
     console.log(error);
@@ -36,10 +44,6 @@ router.get('/posts', async (req, res) => {
   const category = req.query.category ? req.query.category.toLowerCase() : null;
   const { userId } = res.locals.user;
   const posts = await Posts.findAll();
-
-  // const user = await Users.findOne({
-  //   where: { userId: userId },
-  // });
 
   const category_posts = await Posts.findAll({
     where: { genre: category },
