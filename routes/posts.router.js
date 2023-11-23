@@ -45,6 +45,20 @@ router.post('/post', async (req, res) => {
   }
 });
 
+// 게시글 상세 조회
+router.get('/post/:postId', async (req, res) => {
+  const { postId } = req.params;
+  const post = await Posts.findOne({
+    where: { postId: postId },
+  });
+
+  if (post === null) {
+    res.status(400).send({ message: '게시글이 존재하지 않습니다.' });
+  }
+
+  res.send({ post: post });
+});
+
 // 마이페이지 게시글 조회
 router.get('/mypage/posts', async (req, res) => {
   const category = req.query.category ? req.query.category.toLowerCase() : null;
