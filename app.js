@@ -12,10 +12,18 @@ app.use('/api', [authRouter, profileRouter]);
 app.use(express.static("./assets"));
 
 app.get("/", (req, res) => {
-  res.json({
-    success: true,
-    message: "api 가져오기 성공"
-  });
+  try {
+    res.json({
+      success: true,
+      message: "api 가져오기 성공"
+    });
+  } catch (error) {
+    console.log('errorMessage', error);
+    res.status(500).json({
+      success: false,
+      message: "실패"
+    })
+  }
 })
 
 app.listen(SERVER_PORT, () => {
