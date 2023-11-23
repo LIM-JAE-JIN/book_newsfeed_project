@@ -32,11 +32,11 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Users.beforeCreate(async (user) => {
-    const hashedPasswd = await bcrypt.hash(
+    const hashedPassword = await bcrypt.hash(
       user.password,
       parseInt(process.env.SALT_ROUND_KEY),
     );
-    user.password = hashedPasswd;
+    user.password = hashedPassword;
   });
   return Users;
 };
