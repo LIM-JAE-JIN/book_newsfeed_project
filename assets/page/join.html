@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/css/common.css" rel="stylesheet" />
-    <script type="module" src="/js/test.js"></script>
-    <title>책먹고 리플 회원가입</title>
-  </head>
 
-  <body></body>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/common.css" />
+  <link rel="stylesheet" href="/css/signup.css" />
+  <script src="/js/signup.js"></script>
+  <title>책먹고 리플 회원 가입</title>
+</head>
+
+<body>
+  <div class="dr-signup-container">
+    <div class="dr-signup-wrap">
+      <form method="post" id="signup">
+        <h1 class="dr-color-02 dr-fw-600 mb-3">책먹고 리플 회원 가입</h1>
+        <div class="mb-3 dr-input-wrap">
+          <input type="email" class="dr-input" id="email" name="email" placeholder="이메일을 입력해주세요." />
+        </div>
+        <div class="mb-3 dr-input-wrap">
+          <input type="username" class="dr-input" id="username" name="username" placeholder="이름을 입력해주세요." />
+        </div>
+        <div class="mb-3 dr-input-wrap">
+          <input type="password" class="dr-input" id="password" name="password" placeholder="비밀번호를 입력해주세요." />
+        </div>
+        <div class="mb-3 dr-input-wrap">
+          <input type="password" class="dr-input" id="confirmPassword" name="confirmPassword"
+            placeholder="비밀번호를 다시 한 번 입력해주세요." />
+        </div>
+        <button type="button" onclick="signup()" class="dr-button indigo w-100">
+          회원가입 하기
+        </button>
+      </form>
+    </div>
+  </div>
+
+</body>
+
 </html>
