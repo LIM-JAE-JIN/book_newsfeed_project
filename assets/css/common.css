@@ -1,7 +1,6 @@
 @charset "utf-8";
 a {
   text-decoration: none;
-  color: #353839;
 }
 a:hover {
   color: unset;
@@ -123,8 +122,7 @@ html {
   font-size: 62.5%;
 }
 body {
-  background-color: #f8f8f8;
-  color: #353839;
+  background-color: #623c35;
   line-height: 1;
   font-family: 'Pretendard' !important;
 }
@@ -320,7 +318,7 @@ img {
   display: flex;
   justify-content: space-around;
   width: auto;
-  padding: 1.3rem 5.6rem;
+  padding: 1.2rem 3.5rem;
   text-align: center;
   vertical-align: middle;
   font-size: 1.6rem;
@@ -633,4 +631,45 @@ input::placeholder {
 }
 .dr-popup-wrap.on {
   display: block;
+}
+
+/* 헤더 */
+header {
+  width: 100%;
+  position: relative;
+  background: #ff9a69;
+}
+header .header_cont {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+header .header_cont .logo_wrap {
+  display: flex;
+  align-items: center;
+}
+header .header_cont .logo_wrap img {
+  width: 140px;
+}
+header .header_cont .btn_wrap {
+  display: flex;
+}
+header .header_cont .btn_wrap button {
+  margin-right: 10px;
+  background-color: #623c35;
+  border: 0;
+  box-shadow: 2px 2px 0px 2px #333;
+}
+header .header_cont .btn_wrap button:last-child {
+  margin-right: 0;
+}
+header .header_cont .btn_wrap button a {
+  color: #fff;
+  font-weight: bold;
+}
+header .header_cont .btn_wrap button:hover a {
+  color: #ff9a69;
 }

@@ -1,0 +1,42 @@
+.profile_cont_wrap {
+  width: 100%;
+  height: calc(100vh - 124px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile_cont_box {
+  width: 1200px;
+  background: #fff;
+  padding: 60px;
+  border-radius: 30px;
+  box-shadow: 5px 5px 0 2px #3f2a2a;
+}
+.profile_cont_box .title {
+  margin-bottom: 60px;
+}
+.profile_cont_box .title h2 {
+  font-size: 36px;
+  font-weight: bold;
+}
+.profle_cont > p {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  line-height: 30px;
+}
+.profile_edit {
+  display: flex;
+  justify-content: end;
+  margin-top: 100px;
+}
+.profile_edit button {
+  margin-right: 10px;
+  background-color: #623c35;
+  border: 0;
+  color: #fff;
+  font-weight: bold;
+}
+.profile_edit button:hover {
+  color: #ff9a69;
+}

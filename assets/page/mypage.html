@@ -3,10 +3,104 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/css/common.css" rel="stylesheet" />
-    <script type="module" src="/js/test.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/common.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
+    <script type="module" src="/js/jquery-3.6.3.min.js"></script>
+    <script type="module" src="/js/bootstrap.min.js"></script>
+    <script type="module" src="/js/profile.js"></script>
     <title>책먹고 리플 마이페이지</title>
   </head>
 
-  <body></body>
+  <body>
+    <!-- 프로필 수정 팝업 s -->
+    <div class="dr-dim"></div>
+    <div class="dr-popup-wrap dr-popup-edit-member" style="width: 640px">
+      <header style="background-color: transparent">
+        <h1>내 프로필 수정</h1>
+      </header>
+      <div class="dr-popup-content">
+        <div class="mb-5 dr-input-wrap">
+          <input
+            type="text"
+            class="dr-input"
+            id="username"
+            name="username"
+            placeholder="수정할 닉네임"
+          />
+        </div>
+        <div class="mb-5 dr-input-wrap">
+          <input
+            type="text"
+            class="dr-input"
+            id="introduce"
+            name="introduce"
+            placeholder="수정할 인사말"
+          />
+        </div>
+      </div>
+      <footer>
+        <div class="d-flex justify-content-between dr-bg-white">
+          <a
+            href="#none"
+            class="dr-button"
+            onclick="drPopupClose(this)"
+            style="background-color: #ff9a69; color: #fff; border: 0"
+            >취소</a
+          >
+          <a
+            href="#none"
+            class="dr-button"
+            style="background-color: #623c35; color: #fff; border: 0"
+            >수정하기</a
+          >
+        </div>
+      </footer>
+    </div>
+    <!-- 프로필 수정 팝업 s -->
+    <header>
+      <div class="header_cont">
+        <div class="logo_wrap">
+          <img src="../images/logo2.png" alt="logo_img" />
+          <div class="logo_cont"></div>
+        </div>
+
+        <div class="btn_wrap">
+          <button class="dr-button">
+            <a href="/page/main_list.html">메인으로</a>
+          </button>
+          <button class="dr-button">
+            <a href="javascript:void(0);">로그아웃</a>
+          </button>
+        </div>
+      </div>
+    </header>
+    <section class="profile_cont_wrap">
+      <div class="profile_cont_box">
+        <div class="title">
+          <h2>내 프로필</h2>
+        </div>
+        <div class="profle_cont">
+          <p>계정 : <span class="email">test@naver.com</span></p>
+          <p>닉네임 : <span class="username">test</span></p>
+          <p>
+            인사말 :
+            <span class="introduce">
+              안녕하세요 인기쟁이 test입니다! 모두 책먹고 리플달기 야무지게
+              해봐요~!
+            </span>
+          </p>
+          <p>가입날짜 : <span class="created_at">2023.11.24</span></p>
+        </div>
+        <div class="profile_edit">
+          <button
+            class="dr-button"
+            onclick="drPopupOpen('.dr-popup-edit-member')"
+          >
+            프로필 수정
+          </button>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>
