@@ -34,6 +34,7 @@ if (token) {
   }, 3000);
 }
 
+// 내 프로필 조회
 const profileData = await fetchProfilelData();
 const profileCont = document.querySelector("#profileCont");
 
@@ -45,7 +46,6 @@ profileCont.innerHTML = `<p>계정 : <span class="email">${profileData.data.emai
           </p>
           <p>가입날짜 : <span class="created_at">${profileData.data.createdAt.slice(0, 10)}</span></p>`;
 
-
 async function fetchProfilelData() {
   const options = {
     method: "GET",
@@ -54,6 +54,46 @@ async function fetchProfilelData() {
       Authorization:
         `Bearer ${token}`
     }
+  };
+
+  const response = await fetch(`http://localhost:3000/api/mypage`, options);
+  const data = await response.json();
+  return data;
+}
+
+// 내 프로필 수정
+
+$('#editBtn').on('click', async function () {
+  const username = document.getElementById('username').value;
+  const introduce = document.getElementById('introduce').value;
+  const password = document.getElementById('password').value;
+  // 서버로 전송할 데이터 생성
+  const editInput = {
+    username: username,
+    introduce: introduce,
+    password: password
+  };
+  const editData = await fetchProfileEditlData(editInput);
+  console.log(editData);
+
+  profileCont.innerHTML = `<p>계정 : <span class="email">${profileData.data.email}</span></p>
+    <p>닉네임 : <span class="username">${profileData.data.username}</span></p>
+    <p>
+      인사말 :
+      <span class="introduce">${profileData.data.introduce}</span>
+    </p>
+    <p>가입날짜 : <span class="created_at">${profileData.data.createdAt.slice(0, 10)}</span></p>`;
+})
+
+async function fetchProfileEditlData(editInput) {
+  const options = {
+    method: "PUT",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        `Bearer ${token}`
+    },
+    body: JSON.stringify(editInput)
   };
 
   const response = await fetch(`http://localhost:3000/api/mypage`, options);
