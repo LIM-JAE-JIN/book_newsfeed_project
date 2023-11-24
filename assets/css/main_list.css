@@ -1,0 +1,102 @@
+* {
+  margin: 0;
+}
+
+header {
+  background-color: blue;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+button {
+  cursor: pointer;
+}
+
+#title {
+  color: white;
+  font-size: 30px;
+}
+
+#logo {
+  color: white;
+  font-size: 30px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+#genre_menu_btn {
+  color: pink;
+  background: none;
+  border: 1px solid pink;
+  border-radius: 10px;
+}
+
+#logoAndtitle {
+  display: flex;
+  margin: 5px;
+}
+
+#sign_btn {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#posts_container {
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  margin: 50px;
+}
+
+.post_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  border-bottom: 0.5px solid black;
+  padding: 10px;
+}
+
+.post_title {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
+
+.post_body {
+  font-size: 20px;
+}
+
+.post_genre {
+  margin: 5px;
+  color: grey;
+}
+
+#dropmenu_container {
+  position: relative;
+}
+
+.category_container {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.category_dropmenu {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black; /* Initially hide the drop-down */
+  z-index: 100;
+  background-color: pink;
+}
+
+.category_content {
+  margin: 5px;
+  background: none;
+  border: none;
+}
+
+.category_content:hover {
+  background-color: pink;
+}

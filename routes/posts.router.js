@@ -150,43 +150,45 @@ router.get('/mypage/posts', async (req, res) => {
 // 게시글 조회
 router.get('/posts', async (req, res) => {
   const category = req.query.category ? req.query.category.toLowerCase() : null;
-  const { userId } = res.locals.user;
+  // const { userId } = res.locals.user;
   const posts = await Posts.findAll();
 
   const category_posts = await Posts.findAll({
     where: { genre: category },
   });
 
-  const category_newsfeed = await category_posts.filter((post) => {
-    return userId !== post.userId;
-  });
+  // const category_newsfeed = await category_posts.filter((post) => {
+  //   return userId !== post.userId;
+  // });
 
-  const newsfeed = await posts.filter((post) => {
-    return userId !== post.userId;
-  });
+  // const newsfeed = await posts.filter((post) => {
+  //   return userId !== post.userId;
+  // });
 
   if (category === null) {
     return res.status(200).json({
       message: '게시글 전체 목록 조회 성공',
-      data: newsfeed,
+      data: posts,
     });
   }
 
-  if (category_newsfeed.length > 0) {
+  if (category_posts.length > 0) {
     return res.status(200).json({
       message: `게시글 ${category} 목록 조회 성공`,
-      data: category_newsfeed,
+      data: category_posts,
     });
-  } else if (category_newsfeed.length === 0) {
+  } else if (category_posts.length === 0) {
     return res.status(400).json({
       message: '현재 장르에 대한 게시물이 없습니다.',
     });
   }
 });
 
-// 로그인하고 게시글 볼 수 잇게,
-// 내 정보에서 내 게시글
-// 로그인 했을 때 다른 사람 게시글만 보이게
+// 카테고리 가져오기
+router.get('/category', async (req, res) => {
+  const arr_genre = Posts.rawAttributes.genre.type.values;
+  return res.status(200).json({ category: arr_genre });
+});
 
 export default router;
 

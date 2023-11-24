@@ -4,9 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/common.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/main_list.css" />
     <script type="module" src="/js/test.js"></script>
+    <script type="module" src="../js/main_list.js"></script>
     <title>책먹고 리플 메인(로그인 후)</title>
   </head>
 
-  <body></body>
+  <body>
+    <header>
+      <div id="logoAndtitle">
+        <div id="logo">로고</div>
+        <div id="title">책 먹는 버튜버</div>
+      </div>
+      <div id="dropmenu_container">
+        <button id="genre_menu_btn">장르 선택</button>
+      </div>
+
+      <div id="loginAndsign">
+        <button id="login_btn">로그인</button>
+        <button id="sign_btn">회원가입</button>
+      </div>
+    </header>
+
+    <div id="posts_container"></div>
+  </body>
 </html>
