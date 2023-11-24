@@ -16,7 +16,13 @@ module.exports = {
         type: Sequelize.STRING,
       },
       genre: {
-        type: Sequelize.ENUM('literature', 'essay', 'magazine', 'nonfiction'),
+        type: Sequelize.ENUM(
+          'All Genre',
+          'literature',
+          'essay',
+          'magazine',
+          'nonfiction',
+        ),
       },
       userId: {
         type: Sequelize.INTEGER,

@@ -4,9 +4,46 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/common.css" rel="stylesheet" />
-    <script type="module" src="/js/test.js"></script>
+    <link rel="stylesheet" href="../css/main_list.css" />
+    <link rel="stylesheet" href="../css/post.css" />
+    <script type="module" src="../js/post.js"></script>
+    <script type="module" src="../js/main_list.js"></script>
     <title>책먹고 리플 메인(로그인 후)</title>
   </head>
 
-  <body></body>
+  <body>
+    <header>
+      <div id="logoAndtitle">
+        <div id="logo">로고</div>
+        <div id="title">책 먹는 버튜버</div>
+      </div>
+      <div id="dropmenu_container">
+        <button id="genre_menu_btn">장르 선택</button>
+      </div>
+
+      <div id="loginAndsign">
+        <button id="login_btn">로그인</button>
+        <button id="sign_btn">회원가입</button>
+      </div>
+    </header>
+
+    <div id="post_modal">
+      <div id="post_content">
+        <label for="post_title">게시글 제목:</label>
+        <input type="text" id="post_title" />
+
+        <label for="post_body">게시글 내용:</label>
+        <textarea id="post_body"></textarea>
+
+        <label for="post_genre">장르:</label>
+        <select name="post_genre" id="post_genre"></select>
+        <button class="post_confirm">생성</button>
+        <button class="post_cancel">취소</button>
+      </div>
+    </div>
+
+    <button id="post_create_btn">게시글 생성</button>
+
+    <div id="posts_container"></div>
+  </body>
 </html>
