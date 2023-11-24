@@ -1,69 +1,44 @@
 # 회원가입
-POST http://localhost:3016/api/join
+POST http://localhost:3000/api/auth/signup
 Content-Type: application/json
 
 {
-  "email":"test123@naver.com",
+  "email":"test1@naver.com",
   "password":"123123",
-  "passwordChk":"123123",
-  "name":"test123"
+  "confirmPassword":"123123",
+  "username":"test1"
 }
 
 ###
 
 # 로그인
-POST http://localhost:3016/api/login
+POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "email":"test7@naver.com",
+  "email":"test1@naver.com",
   "password":"123123"
 }
 
 ###
 
+#로그아웃
+
+
+###
+
 # 내정보 조회
-GET http://localhost:3016/api/users/me
+GET http://localhost:3000/api/mypage
 
 ###
 
-
-# 상품 목록 조회
-GET http://localhost:3016/api/posts
-
-###
-
-# 상품 생성
-POST http://localhost:3016/api/posts
+# 내정보 수정
+PUT http://localhost:3000/api/mypage
 Content-Type: application/json
 
 {
-  "title": "test7",
-  "content": "test7입니다."
+  "password": "123123",
+  "username": "test111",
+  "introduce": "책읽는 임군입니다~"
 }
 
-###
-
-# 상품 상세 조회
-GET http://localhost:3016/api/detail?postId=6
-
-
-###
-
-# 상품 수정
-PUT http://localhost:3016/api/posts/6
-Content-Type: application/json
-
-{
-  "title":"test수정",
-  "content":"판매 완료했습니다.",
-  "state":false
-}
-
-###
-
-# 상품 삭제
-DELETE http://localhost:3016/api/posts/6
-Content-Type: application/json
-
-###

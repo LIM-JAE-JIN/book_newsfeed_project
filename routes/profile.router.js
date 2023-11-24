@@ -10,11 +10,13 @@ const { Users } = db;
 profileRouter.get("/mypage", authMiddleware, async (req, res) => {
   try {
     const mypage = res.locals.user;
+    const mpjson = mypage.toJSON();
+    delete mpjson.password;
 
     return res.status(200).json({
       success: true,
       message: "정보 조회에 성공했습니다.",
-      data: mypage,
+      data: mpjson,
     })
 
   } catch (error) {
@@ -40,17 +42,22 @@ profileRouter.put('/mypage', authMiddleware, async (req, res) => {
       })
     }
 
-    const profile = await Users.findOne({ where: { userId: mypage?.userId } });
-
     await Users.update(
       { username, introduce },
       { where: { userId: mypage?.userId } }
     )
 
+    const updateProfile = await Users.findOne({
+      where: { userId: mypage?.userId },
+      attributes: {
+        exclude: ['password'] // 가져오지 않을 컬럼을 명시
+      }
+    });
+
     return res.status(200).json({
       success: true,
       message: "프로필이 수정되었습니다",
-      data: profile
+      data: updateProfile
     })
 
   } catch (error) {
