@@ -17,7 +17,7 @@ export default async (req, res, next) => {
     const { userId } = jwt.verify(authToken, TOKEN_KEY);
     const userInfo = await Users.findOne({
       where: { userId: userId },
-      attributes: ['userId', 'username', 'email', 'introduce', 'password'],
+      attributes: ['userId', 'username', 'email', 'introduce', 'password', 'createdAt'],
     });
     res.locals.user = userInfo;
     next();
