@@ -7,7 +7,7 @@ const { Posts } = model;
 const router = express.Router();
 
 // 게시글 생성
-router.post('/post', authMiddleware, async (req, res) => {
+router.post('/auth/post', async (req, res) => {
   try {
     const { title, body, genre } = req.body;
     // model과 migrations에 있는 장르들을 배열로 가져온다.
@@ -49,21 +49,21 @@ router.post('/post', authMiddleware, async (req, res) => {
 });
 
 // 게시글 상세 조회
-router.get('/post/:postId', authMiddleware, async (req, res) => {
+router.get('/post/:postId', async (req, res) => {
   const { postId } = req.params;
   const post = await Posts.findOne({
     where: { postId: postId },
   });
 
   if (post === null) {
-    res.status(400).send({ message: '게시글이 존재하지 않습니다.' });
+    return res.status(400).send({ message: '게시글이 존재하지 않습니다.' });
   }
 
   res.send({ post: post });
 });
 
 // 게시글 수정
-router.put('/post/:postId', authMiddleware, async (req, res) => {
+router.put('/auth/post/:postId', authMiddleware, async (req, res) => {
   const { title, body, genre } = req.body;
   const { postId } = req.params;
   const post = await Posts.findOne({
@@ -75,7 +75,6 @@ router.put('/post/:postId', authMiddleware, async (req, res) => {
   }
 
   const arr_genre = Posts.rawAttributes.genre.type.values;
-  // const userId = res.locals.user.id;
 
   // filter문을 걸어 req.body장르와 비교후 새로운 배열로 반환한다.
   const exist_genre = arr_genre.filter((g) => {
@@ -91,6 +90,11 @@ router.put('/post/:postId', authMiddleware, async (req, res) => {
   }
 
   const { userId } = res.locals.user;
+
+  if (userId !== post.userId) {
+    return res.json('수정 권한이 없습니다.');
+  }
+
   if (userId) {
     await post.update({ title, body, genre });
   }
@@ -101,7 +105,7 @@ router.put('/post/:postId', authMiddleware, async (req, res) => {
 });
 
 // 게시글 삭제
-router.delete('/post/:postId', authMiddleware, async (req, res) => {
+router.delete('/auth/post/:postId', authMiddleware, async (req, res) => {
   const { postId } = req.params;
   const post = await Posts.findOne({
     where: { postId: postId },
@@ -112,6 +116,11 @@ router.delete('/post/:postId', authMiddleware, async (req, res) => {
   }
 
   const { userId } = res.locals.user;
+
+  if (userId !== post.userId) {
+    return res.json('삭제 권한이 없습니다.');
+  }
+
   if (userId) {
     await post.destroy();
   }
@@ -120,7 +129,7 @@ router.delete('/post/:postId', authMiddleware, async (req, res) => {
 });
 
 // 마이페이지 게시글 조회
-router.get('/mypage/posts', authMiddleware, async (req, res) => {
+router.get('/auth/mypage/posts', authMiddleware, async (req, res) => {
   const category = req.query.category ? req.query.category.toLowerCase() : null;
   const { userId } = res.locals.user;
   const posts = await Posts.findAll();
@@ -135,6 +144,48 @@ router.get('/mypage/posts', authMiddleware, async (req, res) => {
 
   const newsfeed = await posts.filter((post) => {
     return userId === post.userId;
+  });
+  console.log(newsfeed);
+  if (!newsfeed.length) {
+    return res.status(400).json('게시물이 없습니다.');
+  }
+
+  if (category === null) {
+    return res.status(200).json({
+      message: '게시글 전체 목록 조회 성공',
+      data: newsfeed,
+    });
+  }
+
+  if (category_newsfeed.length > 0) {
+    return res.status(200).json({
+      message: `게시글 ${category} 목록 조회 성공`,
+      data: category_newsfeed,
+    });
+  } else if (category_newsfeed.length === 0) {
+    return res.status(400).json({
+      message: '현재 장르에 대한 게시물이 없습니다.',
+    });
+  }
+});
+
+// 사용자 제외 게시글 조회
+router.get('/auth/posts', authMiddleware, async (req, res) => {
+  const category = req.query.category ? req.query.category.toLowerCase() : null;
+  const { userId } = res.locals.user;
+
+  const posts = await Posts.findAll();
+
+  const category_posts = await Posts.findAll({
+    where: { genre: category },
+  });
+
+  const category_newsfeed = await category_posts.filter((post) => {
+    return userId !== post.userId;
+  });
+
+  const newsfeed = await posts.filter((post) => {
+    return userId !== post.userId;
   });
 
   if (category === null) {
@@ -157,37 +208,28 @@ router.get('/mypage/posts', authMiddleware, async (req, res) => {
 });
 
 // 게시글 조회
-router.get('/posts', authMiddleware, async (req, res) => {
+router.get('/posts', async (req, res) => {
   const category = req.query.category ? req.query.category.toLowerCase() : null;
-  const { userId } = res.locals.user;
-  console.log(userId);
+
   const posts = await Posts.findAll();
 
   const category_posts = await Posts.findAll({
     where: { genre: category },
   });
 
-  const category_newsfeed = await category_posts.filter((post) => {
-    return userId !== post.userId;
-  });
-
-  const newsfeed = await posts.filter((post) => {
-    return userId !== post.userId;
-  });
-
   if (category === null) {
     return res.status(200).json({
       message: '게시글 전체 목록 조회 성공',
-      data: newsfeed,
+      data: posts,
     });
   }
 
-  if (category_newsfeed.length > 0) {
+  if (category_posts.length > 0) {
     return res.status(200).json({
       message: `게시글 ${category} 목록 조회 성공`,
-      data: category_newsfeed,
+      data: category_posts,
     });
-  } else if (category_newsfeed.length === 0) {
+  } else if (category_posts.length === 0) {
     return res.status(400).json({
       message: '현재 장르에 대한 게시물이 없습니다.',
     });
