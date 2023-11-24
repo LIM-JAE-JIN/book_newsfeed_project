@@ -31,4 +31,32 @@ if (token) {
   console.log('사용자가 로그인한 상태입니다. 토큰:', token);
 } else {
   console.log('사용자가 로그인하지 않은 상태입니다.');
+  alert('로그인해주세요.')
+}
+
+const profileData = await fetchProfilelData();
+const profileCont = document.querySelector("#profileCont");
+
+profileCont.innerHTML = `<p>계정 : <span class="email">${profileData.data.email}</span></p>
+          <p>닉네임 : <span class="username">${profileData.data.username}</span></p>
+          <p>
+            인사말 :
+            <span class="introduce">${profileData.data.introduce}</span>
+          </p>
+          <p>가입날짜 : <span class="created_at">${profileData.data.createdAt}</span></p>`;
+
+
+async function fetchProfilelData() {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        `Bearer ${token}`
+    }
+  };
+
+  const response = await fetch(`http://localhost:3000/api/mypage`, options);
+  const data = await response.json();
+  return data;
 }
