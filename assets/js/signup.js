@@ -31,6 +31,8 @@ async function signup() {
       }
     })
     .catch((error) => {
+      alert(`회원가입에 실패하였습니다.`);
       console.error('회원가입 실패:', error);
+      window.location.href = '/page/index_login.html';
     });
 }
