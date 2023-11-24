@@ -1,12 +1,13 @@
 import { Router } from "express";
 import bcrypt from 'bcrypt';
 import db from "../models/index.cjs";
+import authMiddleware from '../middlewares/auth-middleware.js';
 
 const profileRouter = Router();
 const { Users } = db;
 
 // 내 프로필 정보
-profileRouter.get("/mypage", async (req, res) => {
+profileRouter.get("/mypage", authMiddleware, async (req, res) => {
   try {
     const mypage = res.locals.user;
 
@@ -26,7 +27,7 @@ profileRouter.get("/mypage", async (req, res) => {
 })
 
 // 내 프로필 수정
-profileRouter.put('/mypage', async (req, res) => {
+profileRouter.put('/mypage', authMiddleware, async (req, res) => {
   try {
     const mypage = res.locals.user;
     const { password, username, introduce } = req.body;
