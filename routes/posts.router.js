@@ -7,7 +7,7 @@ const { Posts } = model;
 const router = express.Router();
 
 // 게시글 생성
-router.post('/auth/post', async (req, res) => {
+router.post('/auth/post', authMiddleware, async (req, res) => {
   try {
     const { title, body, genre } = req.body;
     // model과 migrations에 있는 장르들을 배열로 가져온다.
