@@ -25,7 +25,6 @@ post_create_btnBtn.addEventListener('click', async () => {
   const genre = await fetchCategory();
 
   post_genre.innerHTML = '';
-
   for (let g of genre.category) {
     const option = document.createElement('option');
     option.value = g;
@@ -39,16 +38,23 @@ post_create_btnBtn.addEventListener('click', async () => {
       const post_title = document.getElementById('post_title').value;
       const post_body = document.getElementById('post_body').value;
       const post_genre = document.querySelectorAll('.genre');
-      if (!post_title || !post_body || !post_genre) {
+
+      const selectedGenres = Array.from(post_genre)
+        .filter((option) => {
+          return option.selected;
+        })
+        .map((option) => {
+          return option.value;
+        });
+
+      if (!post_title || !post_body || !selectedGenres.length) {
         return alert('빈칸을 채워주세요');
       }
-      for (let a of post_genre) {
-        let g = a.value;
-      }
+
       const newPost = {
         title: post_title,
         body: post_body,
-        genre: g,
+        genre: selectedGenres[0],
       };
 
       const response = await fetch('http://localhost:3000/api/auth/post', {
@@ -63,6 +69,7 @@ post_create_btnBtn.addEventListener('click', async () => {
       console.log(responseData);
 
       post_modal.style.display = 'none';
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
