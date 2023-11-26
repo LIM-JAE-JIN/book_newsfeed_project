@@ -10,12 +10,10 @@ const post_create_btnBtn = document.getElementById('post_create_btn');
 
 post_create_btnBtn.addEventListener('click', async () => {
   const post_modal = document.getElementById('post_modal');
-  const post_content = document.getElementById('post_content');
-  const post_confirm_btn = document.querySelector('.post_confirm');
-  const post_cancel_btn = document.querySelector('.post_cancel');
+  const post_confirm_btn = document.getElementById('create_btn');
+  const post_cancel_btn = document.getElementById('cancel_btn');
   const post_genre = document.getElementById('post_genre');
 
-  post_modal.append(post_content);
   post_modal.style.display = 'block';
 
   post_cancel_btn.addEventListener('click', () => {
@@ -34,7 +32,6 @@ post_create_btnBtn.addEventListener('click', async () => {
     post_genre.appendChild(option);
   }
 
-  post_create_btnBtn.style.display = 'none';
   // 생성 버튼 누르면 추가 해준다.
   post_confirm_btn.addEventListener('click', async () => {
     try {
@@ -80,7 +77,3 @@ post_create_btnBtn.addEventListener('click', async () => {
     }
   });
 });
-
-// 게시글 수정
-
-// 게시글 삭제

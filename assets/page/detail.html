@@ -4,9 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/css/common.css" rel="stylesheet" />
-    <script type="module" src="/js/test.js"></script>
+    <script type="module" src="../js/detail.js"></script>
     <title>책먹고 리플 상세</title>
   </head>
 
-  <body></body>
+  <body>
+    <header>
+      <div class="header_cont">
+        <div class="logo_wrap">
+          <img src="../images/logo2.png" alt="logo_img" />
+          <div class="logo_cont"></div>
+        </div>
+
+        <div class="btn_wrap">
+          <button class="dr-button">
+            <a href="/page/mypage.html">마이페이지</a>
+          </button>
+          <button class="dr-button" onclick="signout()">
+            <a href="javascript:void(0);">로그아웃</a>
+          </button>
+        </div>
+      </div>
+    </header>
+    <div id="detail_cont"></div>
+  </body>
 </html>

@@ -17,58 +17,60 @@
   <body>
     <!-- 게시글 생성 팝업 s -->
     <div class="dr-dim"></div>
-    <div class="dr-popup-wrap dr-popup-create-post" style="width: 640px">
-      <header style="background-color: transparent">
-        <h1>내 프로필 수정</h1>
-      </header>
-      <div class="dr-popup-content">
-        <div class="mb-5 dr-input-wrap">
-          <input
-            type="text"
-            class="dr-input"
-            id="username"
-            name="username"
-            placeholder="수정할 닉네임을 입력해주세요."
-          />
+    <div
+      id="post_modal"
+      class="dr-popup-wrap dr-popup-create-post"
+      style="width: 640px"
+    >
+      <div id="post_content">
+        <header style="background-color: transparent">
+          <h1>게시글 생성</h1>
+        </header>
+        <div class="dr-popup-content">
+          <div class="mb-5 dr-input-wrap">
+            <input
+              type="text"
+              class="dr-input"
+              id="post_title"
+              name="post_title"
+              placeholder="게시글 제목을 입력해주세요."
+            />
+          </div>
+          <div class="mb-5 dr-input-wrap">
+            <input
+              type="text"
+              class="dr-input"
+              id="post_body"
+              name="post_body"
+              placeholder="게시글 내용을 입력해주세요."
+            />
+          </div>
+          <div class="mb-5 dr-input-wrap">
+            <label for="post_genre">장르:</label>
+            <select name="post_genre" id="post_genre"></select>
+          </div>
         </div>
-        <div class="mb-5 dr-input-wrap">
-          <input
-            type="text"
-            class="dr-input"
-            id="introduce"
-            name="introduce"
-            placeholder="수정할 인사말을 입력해주세요."
-          />
-        </div>
-        <div class="mb-5 dr-input-wrap">
-          <input
-            type="password"
-            class="dr-input"
-            id="password"
-            name="password"
-            placeholder="비밀번호를 입력해주세요."
-          />
-        </div>
+        <footer>
+          <div class="d-flex justify-content-between dr-bg-white">
+            <a
+              href="#none"
+              class="dr-button"
+              id="cancel_btn"
+              onclick="drPopupClose(this)"
+              style="background-color: #ff9a69; color: #fff; border: 0"
+              >취소</a
+            >
+            <a
+              href="#none"
+              class="dr-button"
+              id="create_btn"
+              onclick="drPopupClose(this)"
+              style="background-color: #623c35; color: #fff; border: 0"
+              >생성하기</a
+            >
+          </div>
+        </footer>
       </div>
-      <footer>
-        <div class="d-flex justify-content-between dr-bg-white">
-          <a
-            href="#none"
-            class="dr-button"
-            onclick="drPopupClose(this)"
-            style="background-color: #ff9a69; color: #fff; border: 0"
-            >취소</a
-          >
-          <a
-            href="#none"
-            class="dr-button"
-            id="editBtn"
-            onclick="drPopupClose(this)"
-            style="background-color: #623c35; color: #fff; border: 0"
-            >수정하기</a
-          >
-        </div>
-      </footer>
     </div>
     <!-- 게시글 생성 팝업 e -->
 
@@ -77,12 +79,22 @@
         <div class="logo_wrap">
           <img src="../images/logo2.png" alt="logo_img" />
           <div class="logo_cont">
-            <div id="dropmenu_container">
+            <div id="dropmenu_container" class="btn_wrap">
               <button id="genre_menu_btn" class="dr-button" style="border: 0">
                 <a href="javascript:void(0);" style="color: #fff">장르선택</a>
               </button>
             </div>
           </div>
+        </div>
+        <div class="btn_wrap">
+          <button
+            id="post_create_btn"
+            class="dr-button"
+            style="color: #fff"
+            onclick="drPopupOpen('.dr-popup-create-post')"
+          >
+            <a href="#"> 게시글 생성</a>
+          </button>
         </div>
         <div class="btn_wrap">
           <button class="dr-button">
@@ -95,26 +107,7 @@
       </div>
     </header>
 
-    <div id="post_modal">
-      <div id="post_content">
-        <label for="post_title">게시글 제목:</label>
-        <input type="text" id="post_title" />
-
-        <label for="post_body">게시글 내용:</label>
-        <textarea id="post_body"></textarea>
-
-        <label for="post_genre">장르:</label>
-        <select name="post_genre" id="post_genre"></select>
-        <button class="post_confirm">생성</button>
-        <button class="post_cancel">취소</button>
-      </div>
-    </div>
-
     <div id="post_updateAndDelete_btn"></div>
-
-    <button id="post_create_btn" onclick="drPopupOpen('.dr-popup-create-post')">
-      게시글 생성
-    </button>
 
     <div id="posts_container"></div>
   </body>

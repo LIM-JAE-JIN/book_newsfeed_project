@@ -24,7 +24,11 @@ const makePost = (posts) => {
     const post_container = document.createElement('div');
     post_container.classList.add('post_container');
 
-    const post_title = document.createElement('button');
+    const post_title_btn = document.createElement('button');
+    post_title_btn.classList.add('post_title_btn');
+    const post_title = document.createElement('a');
+    post_title_btn.appendChild(post_title);
+    post_title.setAttribute('href', `/page/detail.html?postId=${post.postId}`);
     post_title.classList.add('post_title');
     post_title.textContent = post.title;
 
@@ -36,7 +40,7 @@ const makePost = (posts) => {
     post_genre.classList.add('post_genre');
     post_genre.textContent = `장르: ${post.genre}`;
 
-    post_container.append(post_title, post_body, post_genre);
+    post_container.append(post_title_btn, post_body, post_genre);
     posts_container.appendChild(post_container);
 
     post_title.addEventListener('click', async () => {
@@ -55,18 +59,9 @@ const getPost = async (postId) => {
 
   const title = post.post.title;
   const body = post.post.body;
-  const genre = post.post.genre;
 
   const posts_container = document.getElementById('posts_container');
   posts_container.innerHTML = '';
-  const post_content = document.createElement('div');
-  post_content.innerHTML = `
-        <div class="post_title">${title}</div>
-        </br>
-        <div class="post_body">${body}</div>
-        </br>
-        <div class="post_genre">${genre}</div>
-  `;
 
   // 게시글 수정
   const post_edit_btn = document.createElement('button');
