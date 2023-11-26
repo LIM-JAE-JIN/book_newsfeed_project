@@ -41,7 +41,14 @@ const postDetail = async () => {
     // 업데이트 포스트 모달
 
     post_modal.innerHTML = `
-
+      <label for="update_title">제목:</label>
+      <input type="text" id="update_title" value="${detail.post.title}">
+      <label for="update_body">내용:</label>
+      <textarea id="update_body" value="${detail.post.body}">${detail.post.body}</textarea>
+      <label for="update_genre">장르:</label>
+      <select id="update_genre"></select>
+      <button id="confirm_update">확인</button>
+      <button id="cancel_update">취소</button>
     `;
 
     document.body.appendChild(post_modal);
