@@ -24,10 +24,99 @@ const postDetail = async () => {
     </div>
     </div>
     <div class="post_body">${post.body}</div>
-    <div class="btn_wrap">
     `;
 
   detailCont.appendChild(content);
+
+  // 게시글 수정
+  const post_edit_btn = document.createElement('button');
+
+  post_edit_btn.classList.add('post_edit_btn');
+  post_edit_btn.innerHTML = '수정';
+  content.appendChild(post_edit_btn);
+  // 게시글 수정 버튼 클릭 시 함수 실행
+  post_edit_btn.addEventListener('click', async () => {
+    const postId = detail.post.postId;
+    const post_modal = document.createElement('div');
+    // 업데이트 포스트 모달
+
+    post_modal.innerHTML = `
+
+    `;
+
+    document.body.appendChild(post_modal);
+
+    // 드랍메뉴 update_genre에 넣어주기
+    const category_data = await fetchCategory();
+    const update_genre_dropdown = document.getElementById('update_genre');
+    category_data.category.forEach((genre) => {
+      const option = document.createElement('option');
+      option.value = genre;
+      option.textContent = genre;
+      update_genre_dropdown.appendChild(option);
+    });
+
+    // 수정 확인 누를 시 업데이트api를 받고 업데이트 해준다.
+    const update_confirm_btn = document.getElementById('confirm_update');
+    update_confirm_btn.addEventListener('click', async () => {
+      const update_title = document.getElementById('update_title').value;
+      const update_body = document.getElementById('update_body').value;
+      const update_genre = document.getElementById('update_genre').value;
+
+      if (
+        update_title === null ||
+        update_body === null ||
+        update_genre === null
+      ) {
+        return alert('빈칸을 입력하세요.');
+      }
+
+      const updatedPost = {
+        title: update_title,
+        body: update_body,
+        genre: update_genre,
+      };
+
+      const response = await fetch(
+        `http://localhost:3000/api/auth/post/${postId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedPost),
+        },
+      );
+      const responseData = await response.json();
+      alert(responseData.message);
+      window.location.reload();
+    });
+
+    const update_cancel_btn = document.getElementById('cancel_update');
+    update_cancel_btn.addEventListener('click', () => {
+      post_modal.innerHTML = '';
+    });
+  });
+
+  // 게시글 삭제
+  const post_delete_btn = document.createElement('button');
+  post_delete_btn.classList.add('post_delete_btn');
+  post_delete_btn.innerHTML = '삭제';
+
+  content.appendChild(post_delete_btn);
+  // 게시글 삭제 api와 버튼 클릭 시 삭제
+  post_delete_btn.addEventListener('click', async () => {
+    const postId = detail.post.postId;
+    const response = await fetch(
+      `http://localhost:3000/api/auth/post/${postId}`,
+      {
+        method: 'DELETE',
+      },
+    );
+    const responseData = await response.json();
+    alert(responseData.message);
+    window.location.reload();
+  });
 };
 
 async function fetchDetailData(postId) {
@@ -42,8 +131,15 @@ async function fetchDetailData(postId) {
     options,
   );
   const data = await response.json();
-  console.log(data);
+
   return data;
 }
 
 postDetail();
+
+// 카테고리 가져오기
+const fetchCategory = async () => {
+  const response = await fetch(`http://localhost:3000/api/category`);
+  const responseData = await response.json();
+  return responseData;
+};
