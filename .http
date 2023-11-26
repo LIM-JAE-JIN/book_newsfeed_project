@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
   "password": "123123",
-  "username": "test111",
-  "introduce": "책읽는 임군입니다~"
+  "username": "test333",
+  "introduce": "수정테스트입니3다"
 }
 
