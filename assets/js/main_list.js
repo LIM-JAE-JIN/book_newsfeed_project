@@ -17,37 +17,22 @@ function drPopupClose(im) {
 
 // posts 카드 함수
 const makePost = (posts) => {
-  const posts_container = document.getElementById('posts_container');
+  const listWrap = document.getElementById('list_cont');
 
-  posts_container.innerHTML = '';
-  posts.forEach((post) => {
-    const post_container = document.createElement('div');
-    post_container.classList.add('post_container');
-
-    const post_title_btn = document.createElement('button');
-    post_title_btn.classList.add('post_title_btn');
-    const post_title = document.createElement('a');
-    post_title_btn.appendChild(post_title);
-    // page/detail.html에 postId를 쿼리문으로 이동한다. // detail.js 확인
-    post_title.setAttribute('href', `/page/detail.html?postId=${post.postId}`);
-    post_title.classList.add('post_title');
-    post_title.textContent = post.title;
-
-    const post_body = document.createElement('div');
-    post_body.classList.add('post_body');
-    post_body.textContent = post.body;
-
-    const post_genre = document.createElement('div');
-    post_genre.classList.add('post_genre');
-    post_genre.textContent = `장르: ${post.genre}`;
-
-    post_container.append(post_title_btn, post_body, post_genre);
-    posts_container.appendChild(post_container);
-
-    post_title.addEventListener('click', async () => {
-      await getPost(post.postId);
-    });
-  });
+  listWrap.innerHTML = posts
+    .map(
+      (post) => `
+    <li>
+      <a href="/page/detail.html?postId=${post.postId}"></a>
+      <p class="title">${post.title}</p>
+      <p class="content">${post.body}</p>
+      <div style="display: flex; justify-content: space-between">
+        <p class="genre">장르: ${post.genre}</p>
+        <p class="name">작성자 : 나</p>
+      </div>
+    </li>`,
+    )
+    .join('');
 };
 
 // 상세 게시글 조회
@@ -172,11 +157,63 @@ const makePost = (posts) => {
 //   post_create_btn.style.display = 'none';
 // };
 
-// // 로그인 후 카테고리 별 포스트
-// const getUserLoginCategoryPosts = async (category) => {
+// 로그인 후 카테고리 별 포스트
+const getUserLoginCategoryPosts = async (category) => {
+  // 백엔드 카테코리 조회 api 가져오기
+  const response = await fetch(
+    `http://localhost:3000/api/auth/posts?category=${category}`,
+  );
+  const responsetData = await response.json();
+  const posts = responsetData.data;
+
+  const listWrap = document.getElementById('list_cont');
+
+  // posts가 빈 배열이면 밑에 메시지 반환
+  if (posts === undefined) {
+    return (listWrap.innerHTML = `
+    <li>
+    <div>해당 ${category}에 대한 게시물이 없습니다.</div>
+    </li>`);
+  }
+
+  // post 카드 함수
+  makePost(posts);
+};
+
+// 로그인 후 포스트 조회
+const getUserLoginPosts = async () => {
+  // 백엔드 카테코리 조회 api 가져오기
+  const response = await fetch(`http://localhost:3000/api/auth/posts`);
+  const responsetData = await response.json();
+  const posts = responsetData.data;
+
+  // post 카드 함수
+  makePost(posts);
+};
+
+getUserLoginPosts();
+
+// 로그인 후 마이페이지 포스트
+// const getMypagePosts = async () => {
+//   // 백엔드 카테코리 조회 api 가져오기
+//   const response = await fetch(`http://localhost:3000/api/auth/mypage/posts`);
+//   const responsetData = await response.json();
+//   const posts = responsetData.data;
+
+//   const posts_container = document.getElementById('posts_container');
+//   posts_container.innerHTML = '';
+
+//   // post 카드 함수
+//   makePost(posts);
+// };
+
+// getMypagePosts();
+
+// // 로그인 후 마이페이지 카테고리 별 포스트
+// const getMypageCategoryPosts = async (category) => {
 //   // 백엔드 카테코리 조회 api 가져오기
 //   const response = await fetch(
-//     `http://localhost:3000/api/auth/posts?category=${category}`,
+//     `http://localhost:3000/api/auth/mypage/posts?category=${category}`,
 //   );
 //   const responsetData = await response.json();
 //   const posts = responsetData.data;
@@ -192,59 +229,6 @@ const makePost = (posts) => {
 //   // post 카드 함수
 //   makePost(posts);
 // };
-
-// // 로그인 후 포스트 조회
-// const getUserLoginPosts = async () => {
-//   // 백엔드 카테코리 조회 api 가져오기
-//   const response = await fetch(`http://localhost:3000/api/auth/posts`);
-//   const responsetData = await response.json();
-//   const posts = responsetData.data;
-
-//   const posts_container = document.getElementById('posts_container');
-//   posts_container.innerHTML = '';
-
-//   // post 카드 함수
-//   makePost(posts);
-// };
-
-// getUserLoginPosts();
-
-// 로그인 후 마이페이지 포스트
-const getMypagePosts = async () => {
-  // 백엔드 카테코리 조회 api 가져오기
-  const response = await fetch(`http://localhost:3000/api/auth/mypage/posts`);
-  const responsetData = await response.json();
-  const posts = responsetData.data;
-
-  const posts_container = document.getElementById('posts_container');
-  posts_container.innerHTML = '';
-
-  // post 카드 함수
-  makePost(posts);
-};
-
-getMypagePosts();
-
-// 로그인 후 마이페이지 카테고리 별 포스트
-const getMypageCategoryPosts = async (category) => {
-  // 백엔드 카테코리 조회 api 가져오기
-  const response = await fetch(
-    `http://localhost:3000/api/auth/mypage/posts?category=${category}`,
-  );
-  const responsetData = await response.json();
-  const posts = responsetData.data;
-
-  const posts_container = document.getElementById('posts_container');
-  posts_container.innerHTML = '';
-
-  // posts가 빈 배열이면 밑에 메시지 반환
-  if (posts === undefined) {
-    return (posts_container.innerHTML = `해당 ${category}에 대한 게시글이 존재하지 않습니다.`);
-  }
-
-  // post 카드 함수
-  makePost(posts);
-};
 
 // 카테고리 가져오기
 const fetchCategory = async () => {
@@ -279,8 +263,7 @@ const categoryDropmenu = async () => {
 
       // category를 클릭 시 해당 게시글을 보여준다.
       category_content.addEventListener('click', async () => {
-        await getMypageCategoryPosts(genre);
-        // await getUserLoginCategoryPosts(genre);
+        await getUserLoginCategoryPosts(genre);
         category_container.style.display = 'none';
       });
     });
