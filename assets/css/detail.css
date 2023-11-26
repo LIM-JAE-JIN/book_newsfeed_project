@@ -25,5 +25,91 @@
   border-top: 1px solid #ddd;
   font-size: 20px;
 }
-.detail_content .post_genre {
+
+#post_deleteAndEdit_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.post_delete_btn {
+  margin-left: 10px;
+  color: white;
+  font-size: 15px;
+  padding: 5px;
+  background: #623c35;
+  border-radius: 10px;
+}
+
+.post_delete_btn:hover {
+  color: #ff9a69;
+  cursor: pointer;
+}
+
+.post_edit_btn {
+  margin-left: 10px;
+  color: white;
+  font-size: 15px;
+  padding: 5px;
+  background: #623c35;
+  border-radius: 10px;
+}
+
+.post_edit_btn:hover {
+  color: #ff9a69;
+  cursor: pointer;
+}
+
+.post_modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-color: white;
+  margin: 300px;
+  border-radius: 10px;
+}
+
+#update_title {
+  margin: 10px;
+  font-size: 14px;
+}
+
+#update_body {
+  margin: 10px;
+  font-size: 14px;
+}
+
+.updata_btn {
+  margin-top: 10px;
+  display: flex;
+}
+
+#confirm_update {
+  margin-right: 10px;
+  color: white;
+  font-size: 10px;
+  padding: 5px;
+  background: #623c35;
+  border-radius: 10px;
+}
+
+#confirm_update:hover {
+  color: #ff9a69;
+  cursor: pointer;
+}
+
+#cancel_update {
+  color: white;
+  font-size: 10px;
+  padding: 5px;
+  background: #623c35;
+  border-radius: 10px;
+}
+
+#cancel_update:hover {
+  color: #ff9a69;
+  cursor: pointer;
 }

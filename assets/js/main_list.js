@@ -19,7 +19,6 @@ function drPopupClose(im) {
 const makePost = (posts) => {
   const listWrap = document.getElementById('list_cont');
   // 재진님 posts 카드
-  console.log(posts);
   listWrap.innerHTML = posts
     .map(
       (post) => `

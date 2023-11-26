@@ -24,24 +24,44 @@ const postDetail = async () => {
     </div>
     </div>
     <div class="post_body">${post.body}</div>
+    <div id="post_deleteAndEdit_btn"></div>
     `;
-
-  // 게시글 수정
-  if (detail.post.userId === detail.userId) {
-  }
-  const post_edit_btn = document.createElement('button');
-
   detailCont.appendChild(content);
 
+  const post_deleteAndEdit_btn = document.getElementById(
+    'post_deleteAndEdit_btn',
+  );
+
+  // 게시글 삭제 버튼
+  const post_delete_btn = document.createElement('button');
+  post_delete_btn.classList.add('post_delete_btn');
+  post_delete_btn.innerHTML = '삭제';
+
+  // 게시글 수정 버튼
+  const post_edit_btn = document.createElement('button');
   post_edit_btn.classList.add('post_edit_btn');
   post_edit_btn.innerHTML = '수정';
-  content.appendChild(post_edit_btn);
+
+  post_deleteAndEdit_btn.append(post_edit_btn, post_delete_btn);
+  // userId가 다르면 수정, 삭제 버튼 숨김
+  if (detail.post.userId === detail.userId) {
+    post_delete_btn.style.display = 'block';
+    post_edit_btn.style.display = 'block';
+  } else {
+    post_delete_btn.style.display = 'none';
+    post_edit_btn.style.display = 'none';
+  }
 
   // 게시글 수정 버튼 클릭 시 함수 실행
   post_edit_btn.addEventListener('click', async () => {
-    const postId = detail.post.postId;
+    const postId = post.postId;
     const post_modal = document.createElement('div');
+    post_modal.classList.add('post_modal');
+    const detail_update_modal = document.getElementById('detail_update_modal');
     // 업데이트 포스트 모달
+
+    detail_update_modal.innerHTML = '';
+
     post_modal.innerHTML = `
       <label for="update_title">제목:</label>
       <input type="text" id="update_title" value="${detail.post.title}">
@@ -49,10 +69,13 @@ const postDetail = async () => {
       <textarea id="update_body" value="${detail.post.body}">${detail.post.body}</textarea>
       <label for="update_genre">장르:</label>
       <select id="update_genre"></select>
+      <div class="updata_btn">
       <button id="confirm_update">확인</button>
       <button id="cancel_update">취소</button>
+      </div>
     `;
-    document.body.appendChild(post_modal);
+
+    detail_update_modal.appendChild(post_modal);
 
     // 드랍메뉴 update_genre에 넣어주기
     const category_data = await fetchCategory();
@@ -96,7 +119,7 @@ const postDetail = async () => {
         },
       );
       const responseData = await response.json();
-      console.log(response);
+
       alert(responseData.message);
       window.location.reload();
     });
@@ -108,11 +131,6 @@ const postDetail = async () => {
   });
 
   // 게시글 삭제
-  const post_delete_btn = document.createElement('button');
-  post_delete_btn.classList.add('post_delete_btn');
-  post_delete_btn.innerHTML = '삭제';
-
-  content.appendChild(post_delete_btn);
   // 게시글 삭제 api와 버튼 클릭 시 삭제
   post_delete_btn.addEventListener('click', async () => {
     const postId = detail.post.postId;
@@ -128,6 +146,7 @@ const postDetail = async () => {
   });
 };
 
+// post API 가져오기
 async function fetchDetailData(postId) {
   const options = {
     method: 'GET',
