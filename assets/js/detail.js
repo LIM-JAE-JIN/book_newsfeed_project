@@ -1,3 +1,5 @@
+// detail.js 확인
+
 const postDetail = async () => {
   // URL에서 쿼리 문자열을 가져옵니다
   let queryString = window.location.search;

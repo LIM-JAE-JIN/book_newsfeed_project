@@ -138,3 +138,7 @@ button {
   margin-left: 10px;
   font-weight: 700;
 }
+
+.mylist_wrap {
+  margin: 150px 10px 10px 10px;
+}
