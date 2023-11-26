@@ -1,0 +1,29 @@
+.detail_cont {
+  width: 1200px;
+  display: flex;
+  margin: 50px auto;
+  flex-direction: column;
+}
+.detail_content {
+  width: 100%;
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0 2px #3f2a2a;
+  box-sizing: border-box;
+}
+
+.detail_content .post_title h2 {
+  font-size: 32px;
+}
+.detail_content .post_title p {
+  font-size: 16px;
+}
+.detail_content .post_body {
+  margin-top: 10px;
+  padding-top: 30px;
+  border-top: 1px solid #ddd;
+  font-size: 20px;
+}
+.detail_content .post_genre {
+}

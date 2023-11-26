@@ -14,11 +14,15 @@ const postDetail = async () => {
   const content = document.createElement('div');
   content.classList.add('detail_content');
   content.innerHTML = `
-   <div id="post_title">${post.title}</div>
-   </br>
-   <div id="post_body">${post.body}</div>
-   </br>
-   <div id="post_genre">${post.genre}</div>
+    <div class="post_title">
+    <h2>${post.title}</h2>
+    <div style="display:flex; justify-content:space-between; margin-top:30px;">
+    <p>작성일 : ${post.createdAt.slice(0, 10)}</p>
+    <p>장르 : ${post.genre}</p>
+    </div>
+    </div>
+    <div class="post_body">${post.body}</div>
+    <div class="btn_wrap">
     `;
 
   detailCont.appendChild(content);
@@ -36,6 +40,7 @@ async function fetchDetailData(postId) {
     options,
   );
   const data = await response.json();
+  console.log(data);
   return data;
 }
 
