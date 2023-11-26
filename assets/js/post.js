@@ -33,6 +33,8 @@ post_create_btnBtn.addEventListener('click', async () => {
     option.classList.add('genre');
     post_genre.appendChild(option);
   }
+
+  post_create_btnBtn.style.display = 'none';
   // 생성 버튼 누르면 추가 해준다.
   post_confirm_btn.addEventListener('click', async () => {
     try {

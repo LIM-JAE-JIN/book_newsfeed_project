@@ -34,12 +34,22 @@ const getPost = async (postId) => {
   const responseData = await response.json();
   const post = responseData;
 
+  const post_create_btn = document.getElementById('post_create_btn');
+
   const title = post.post.title;
   const body = post.post.body;
   const genre = post.post.genre;
 
   const posts_container = document.getElementById('posts_container');
   posts_container.innerHTML = '';
+  const post_content = document.createElement('div');
+  post_content.innerHTML = `
+        <div class="post_title">${title}</div>
+        </br>
+        <div class="post_body">${body}</div>
+        </br>
+        <div class="post_genre">${genre}</div>
+  `;
 
   // 게시글 수정
   const post_edit_btn = document.createElement('button');
@@ -55,7 +65,7 @@ const getPost = async (postId) => {
       <input type="text" id="update_title" value="${title}">
       <br>
       <label for="update_body">내용:</label>
-      <input id="update_body" value="${body}"></input>
+      <textarea id="update_body" value="${body}"></textarea>
       <br>
       <label for="update_genre">장르:</label>
       <select id="update_genre"></select>
@@ -111,6 +121,11 @@ const getPost = async (postId) => {
       alert(responseData.message);
       window.location.reload();
     });
+
+    const update_cancel_btn = document.getElementById('cancel_update');
+    update_cancel_btn.addEventListener('click', () => {
+      post_modal.innerHTML = '';
+    });
   });
 
   // 게시글 삭제
@@ -130,11 +145,18 @@ const getPost = async (postId) => {
     alert(responseData.message);
     window.location.reload();
   });
+
+  console.log(post_content);
   // 상세 게시글 바탕 모달
   const post_modal = document.createElement('div');
   post_modal.classList.add('post_modal');
-  post_modal.append(title, body, genre, post_delete_btn, post_edit_btn);
+  const post_updateAndDelete_btn = document.getElementById(
+    'post_updateAndDelete_btn',
+  );
+  post_updateAndDelete_btn.append(post_edit_btn, post_delete_btn);
+  post_modal.append(post_content, post_updateAndDelete_btn);
   posts_container.append(post_modal);
+  post_create_btn.style.display = 'none';
 };
 
 // // 로그인 후 카테고리 별 포스트
@@ -190,26 +212,26 @@ const getMypagePosts = async () => {
 
 getMypagePosts();
 
-// // 로그인 후 마이페이지 카테고리 별 포스트
-// const getMypageCategoryPosts = async (category) => {
-//   // 백엔드 카테코리 조회 api 가져오기
-//   const response = await fetch(
-//     `http://localhost:3000/api/auth/mypage/posts?:category=${category}`,
-//   );
-//   const responsetData = await response.json();
-//   const posts = responsetData.data;
+// 로그인 후 마이페이지 카테고리 별 포스트
+const getMypageCategoryPosts = async (category) => {
+  // 백엔드 카테코리 조회 api 가져오기
+  const response = await fetch(
+    `http://localhost:3000/api/auth/mypage/posts?category=${category}`,
+  );
+  const responsetData = await response.json();
+  const posts = responsetData.data;
 
-//   const posts_container = document.getElementById('posts_container');
-//   posts_container.innerHTML = '';
+  const posts_container = document.getElementById('posts_container');
+  posts_container.innerHTML = '';
 
-//   // posts가 빈 배열이면 밑에 메시지 반환
-//   if (posts === undefined) {
-//     return (posts_container.innerHTML = `해당 ${category}에 대한 게시글이 존재하지 않습니다.`);
-//   }
+  // posts가 빈 배열이면 밑에 메시지 반환
+  if (posts === undefined) {
+    return (posts_container.innerHTML = `해당 ${category}에 대한 게시글이 존재하지 않습니다.`);
+  }
 
-//   // post 카드 함수
-//   makePost(posts);
-// };
+  // post 카드 함수
+  makePost(posts);
+};
 
 // 카테고리 가져오기
 const fetchCategory = async () => {
@@ -244,8 +266,8 @@ const categoryDropmenu = async () => {
 
       // category를 클릭 시 해당 게시글을 보여준다.
       category_content.addEventListener('click', async () => {
-        await getUserLoginCategoryPosts(genre);
         await getMypageCategoryPosts(genre);
+        // await getUserLoginCategoryPosts(genre);
         category_container.style.display = 'none';
       });
     });
