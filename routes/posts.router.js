@@ -50,8 +50,10 @@ router.post('/auth/post', authMiddleware, async (req, res) => {
 });
 
 // 게시글 상세 조회
-router.get('/post/:postId', async (req, res) => {
+router.get('/post/:postId', authMiddleware, async (req, res) => {
   const { postId } = req.params;
+  const { userId } = res.locals.user;
+
   const post = await Posts.findOne({
     where: { postId: postId },
   });
@@ -60,7 +62,7 @@ router.get('/post/:postId', async (req, res) => {
     return res.status(400).send({ message: '게시글이 존재하지 않습니다.' });
   }
 
-  res.send({ post: post });
+  res.status(200).json({ post: post, userId: userId });
 });
 
 // 게시글 수정
@@ -93,7 +95,7 @@ router.put('/auth/post/:postId', authMiddleware, async (req, res) => {
   const { userId } = res.locals.user;
 
   if (userId !== post.userId) {
-    return res.json('수정 권한이 없습니다.');
+    return res.status(400).json({ message: '수정 권한이 없습니다.' });
   }
 
   if (userId) {
@@ -117,9 +119,9 @@ router.delete('/auth/post/:postId', authMiddleware, async (req, res) => {
   }
 
   const { userId } = res.locals.user;
-  console.log(userId, post);
+
   if (userId !== post.userId) {
-    return res.json('삭제 권한이 없습니다.');
+    return res.status(400).json({ message: '삭제 권한이 없습니다.' });
   }
 
   if (userId) {

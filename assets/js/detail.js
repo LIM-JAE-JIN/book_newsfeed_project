@@ -26,20 +26,22 @@ const postDetail = async () => {
     <div class="post_body">${post.body}</div>
     `;
 
-  detailCont.appendChild(content);
-
   // 게시글 수정
+  if (detail.post.userId === detail.userId) {
+  }
   const post_edit_btn = document.createElement('button');
+
+  detailCont.appendChild(content);
 
   post_edit_btn.classList.add('post_edit_btn');
   post_edit_btn.innerHTML = '수정';
   content.appendChild(post_edit_btn);
+
   // 게시글 수정 버튼 클릭 시 함수 실행
   post_edit_btn.addEventListener('click', async () => {
     const postId = detail.post.postId;
     const post_modal = document.createElement('div');
     // 업데이트 포스트 모달
-
     post_modal.innerHTML = `
       <label for="update_title">제목:</label>
       <input type="text" id="update_title" value="${detail.post.title}">
@@ -50,7 +52,6 @@ const postDetail = async () => {
       <button id="confirm_update">확인</button>
       <button id="cancel_update">취소</button>
     `;
-
     document.body.appendChild(post_modal);
 
     // 드랍메뉴 update_genre에 넣어주기
@@ -95,6 +96,7 @@ const postDetail = async () => {
         },
       );
       const responseData = await response.json();
+      console.log(response);
       alert(responseData.message);
       window.location.reload();
     });
