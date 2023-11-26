@@ -26,13 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       body: DataTypes.STRING,
       genre: {
-        type: DataTypes.ENUM(
-          'All Genre',
-          'literature',
-          'essay',
-          'magazine',
-          'nonfiction',
-        ),
+        type: DataTypes.ENUM('literature', 'essay', 'magazine', 'nonfiction'),
       },
       userId: {
         references: {
