@@ -1,3 +1,4 @@
+window.signout = signout;
 async function signout() {
   fetch('http://localhost:3000/api/auth/logout', {
     method: 'GET',

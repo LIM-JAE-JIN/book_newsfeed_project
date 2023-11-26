@@ -654,6 +654,9 @@ header .header_cont .logo_wrap {
 header .header_cont .logo_wrap img {
   width: 140px;
 }
+header .header_cont .logo_cont {
+  margin-left: 20px;
+}
 header .header_cont .btn_wrap {
   display: flex;
 }

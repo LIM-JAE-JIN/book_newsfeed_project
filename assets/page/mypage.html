@@ -9,6 +9,7 @@
     <script type="module" src="/js/jquery-3.6.3.min.js"></script>
     <script type="module" src="/js/bootstrap.min.js"></script>
     <script type="module" src="/js/profile.js"></script>
+    <script type="module" src="../js/logout.js"></script>
     <title>책먹고 리플 마이페이지</title>
   </head>
 
@@ -68,7 +69,8 @@
         </div>
       </footer>
     </div>
-    <!-- 프로필 수정 팝업 s -->
+    <!-- 프로필 수정 팝업 e -->
+
     <header>
       <div class="header_cont">
         <div class="logo_wrap">
@@ -80,7 +82,7 @@
           <button class="dr-button">
             <a href="/page/main_list.html">메인으로</a>
           </button>
-          <button class="dr-button">
+          <button class="dr-button" onclick="signout()">
             <a href="javascript:void(0);">로그아웃</a>
           </button>
         </div>

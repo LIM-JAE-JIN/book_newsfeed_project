@@ -6,14 +6,6 @@
   list-style: none;
   color: #ff9a69;
 }
-
-header {
-  background-color: #ff9a69;
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 /* body {
   background-color: #623c35;
 } */
@@ -30,14 +22,14 @@ button {
   margin-left: 10px;
   margin-right: 20px;
 }
-#genre_menu_btn {
+/* #genre_menu_btn {
   font-size: 20px;
   padding: 8px;
   color: #ff9a69;
   background: #623c35;
-  /* border: 1px solid pink; */
+  border: 1px solid pink;
   border-radius: 10px;
-}
+} */
 #logoAndtitle {
   display: flex;
   margin: 5px;
