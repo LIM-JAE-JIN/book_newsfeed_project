@@ -22,14 +22,7 @@ button {
   margin-left: 10px;
   margin-right: 20px;
 }
-/* #genre_menu_btn {
-  font-size: 20px;
-  padding: 8px;
-  color: #ff9a69;
-  background: #623c35;
-  border: 1px solid pink;
-  border-radius: 10px;
-} */
+
 #logoAndtitle {
   display: flex;
   margin: 5px;
@@ -39,7 +32,6 @@ button {
   padding: 8px;
   color: #ff9a69;
   background: #623c35;
-  /* border: 1px solid pink; */
   border-radius: 10px;
   margin-left: 5px;
 }
@@ -48,7 +40,6 @@ button {
   padding: 8px;
   color: #ff9a69;
   background: #623c35;
-  /* border: 1px solid pink; */
   border-radius: 10px;
   margin-right: 20px;
   margin-left: 5px;
@@ -85,23 +76,27 @@ button {
 }
 .category_container {
   position: absolute;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
 }
 .category_dropmenu {
   display: flex;
   flex-direction: column;
-  border: 1px solid black; /* Initially hide the drop-down */
   z-index: 100;
-  background-color: #623c35;
+  border-radius: 10px;
 }
 .category_content {
   margin: 5px;
   background: none;
   border: none;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 15px;
 }
 .category_content:hover {
-  background-color: #623c35;
+  color: #ff9a69;
 }
 
 button {
@@ -137,4 +132,5 @@ button {
 
 #post_create_btn {
   margin-left: 10px;
+  font-weight: 700;
 }
