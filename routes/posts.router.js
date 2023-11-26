@@ -7,7 +7,7 @@ const { Posts } = model;
 const router = express.Router();
 
 // 게시글 생성
-router.post('/auth/post', async (req, res) => {
+router.post('/auth/post', authMiddleware, async (req, res) => {
   try {
     const { title, body, genre } = req.body;
     // model과 migrations에 있는 장르들을 배열로 가져온다.
@@ -32,6 +32,7 @@ router.post('/auth/post', async (req, res) => {
 
     const { userId } = res.locals.user;
     // 위에 조건들을 만족한 후에 생성한다.
+
     const post = await Posts.create({
       userId,
       title,
@@ -116,7 +117,7 @@ router.delete('/auth/post/:postId', authMiddleware, async (req, res) => {
   }
 
   const { userId } = res.locals.user;
-
+  console.log(userId, post);
   if (userId !== post.userId) {
     return res.json('삭제 권한이 없습니다.');
   }
@@ -145,7 +146,6 @@ router.get('/auth/mypage/posts', authMiddleware, async (req, res) => {
   const newsfeed = await posts.filter((post) => {
     return userId === post.userId;
   });
-  console.log(newsfeed);
   if (!newsfeed.length) {
     return res.status(400).json('게시물이 없습니다.');
   }

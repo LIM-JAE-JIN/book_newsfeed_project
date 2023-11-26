@@ -1,6 +1,12 @@
 * {
   margin: 0;
 }
+
+#mypage {
+  list-style: none;
+  color: #ff9a69;
+}
+
 header {
   background-color: #ff9a69;
   height: 80px;
@@ -104,4 +110,39 @@ button {
 }
 .category_content:hover {
   background-color: #623c35;
+}
+
+button {
+  font-size: 20px;
+  padding: 8px;
+  color: #ff9a69;
+  background: #623c35;
+  border-radius: 10px;
+}
+
+.post_modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border-radius: 10px;
+  height: 500px;
+}
+
+#post_updateAndDelete_btn {
+  margin-top: auto;
+  margin-bottom: 20px;
+}
+
+.post_delete_btn {
+  margin-left: 10px;
+}
+
+#mypage_btn {
+  margin-right: 10px;
+}
+
+#post_create_btn {
+  margin-left: 10px;
 }
