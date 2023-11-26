@@ -26,7 +26,7 @@
             class="dr-input"
             id="username"
             name="username"
-            placeholder="수정할 닉네임"
+            placeholder="수정할 닉네임을 입력해주세요."
           />
         </div>
         <div class="mb-5 dr-input-wrap">
@@ -35,7 +35,16 @@
             class="dr-input"
             id="introduce"
             name="introduce"
-            placeholder="수정할 인사말"
+            placeholder="수정할 인사말을 입력해주세요."
+          />
+        </div>
+        <div class="mb-5 dr-input-wrap">
+          <input
+            type="password"
+            class="dr-input"
+            id="password"
+            name="password"
+            placeholder="비밀번호를 입력해주세요."
           />
         </div>
       </div>
@@ -51,6 +60,8 @@
           <a
             href="#none"
             class="dr-button"
+            id="editBtn"
+            onclick="drPopupClose(this)"
             style="background-color: #623c35; color: #fff; border: 0"
             >수정하기</a
           >
@@ -80,8 +91,8 @@
         <div class="title">
           <h2>내 프로필</h2>
         </div>
-        <div class="profle_cont">
-          <p>계정 : <span class="email">test@naver.com</span></p>
+        <div class="profle_cont" id="profileCont">
+          <!-- <p>계정 : <span class="email">test@naver.com</span></p>
           <p>닉네임 : <span class="username">test</span></p>
           <p>
             인사말 :
@@ -90,7 +101,7 @@
               해봐요~!
             </span>
           </p>
-          <p>가입날짜 : <span class="created_at">2023.11.24</span></p>
+          <p>가입날짜 : <span class="created_at">2023.11.24</span></p> -->
         </div>
         <div class="profile_edit">
           <button
