@@ -41,21 +41,79 @@ const getPost = async (postId) => {
   const posts_container = document.getElementById('posts_container');
   posts_container.innerHTML = '';
 
+  // 게시글 수정
   const post_edit_btn = document.createElement('button');
   post_edit_btn.classList.add('post_edit_btn');
   post_edit_btn.innerHTML = '수정';
+  // 게시글 수정 버튼 클릭 시 함수 실행
   post_edit_btn.addEventListener('click', async () => {
     const postId = post.post.postId;
-    const response = await fetch(
-      `http://localhost:3000/api/auth/post/${postId}`,
-      {
-        method: 'PUT',
-      },
-    );
-    const responseData = await response.json();
-    console.log(responseData);
+
+    // 업데이트 포스트 모달
+    post_modal.innerHTML = `
+      <label for="update_title">제목:</label>
+      <input type="text" id="update_title" value="${title}">
+      <br>
+      <label for="update_body">내용:</label>
+      <input id="update_body" value="${body}"></input>
+      <br>
+      <label for="update_genre">장르:</label>
+      <select id="update_genre"></select>
+      <br>
+      <button id="confirm_update">확인</button>
+      <button id="cancel_update">취소</button>
+    `;
+
+    posts_container.appendChild(post_modal);
+
+    // 드랍메뉴 updata_genre에 넣어주기
+    const category_data = await fetchCategory();
+    const update_genre_dropdown = document.getElementById('update_genre');
+    category_data.category.forEach((genre) => {
+      const option = document.createElement('option');
+      option.value = genre;
+      option.textContent = genre;
+      update_genre_dropdown.appendChild(option);
+    });
+
+    // 수정 확인 누를 시 업데이트api를 받고 업데이트 해준다.
+    const update_confirm_btn = document.getElementById('confirm_update');
+    update_confirm_btn.addEventListener('click', async () => {
+      const update_title = document.getElementById('update_title').value;
+      const update_body = document.getElementById('update_body').value;
+      const update_genre = document.getElementById('update_genre').value;
+
+      if (
+        update_title === null ||
+        update_body === null ||
+        update_genre === null
+      ) {
+        return alert('빈칸을 입력하세요.');
+      }
+
+      const updatedPost = {
+        title: update_title,
+        body: update_body,
+        genre: update_genre,
+      };
+
+      const response = await fetch(
+        `http://localhost:3000/api/auth/post/${postId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedPost),
+        },
+      );
+      const responseData = await response.json();
+      alert(responseData.message);
+      window.location.reload();
+    });
   });
 
+  // 게시글 삭제
   const post_delete_btn = document.createElement('button');
   post_delete_btn.classList.add('post_delete_btn');
   post_delete_btn.innerHTML = '삭제';
@@ -74,6 +132,7 @@ const getPost = async (postId) => {
   });
   // 상세 게시글 바탕 모달
   const post_modal = document.createElement('div');
+  post_modal.classList.add('post_modal');
   post_modal.append(title, body, genre, post_delete_btn, post_edit_btn);
   posts_container.append(post_modal);
 };
