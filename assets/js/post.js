@@ -21,9 +21,10 @@ post_create_btnBtn.addEventListener('click', async () => {
   post_cancel_btn.addEventListener('click', () => {
     post_modal.style.display = 'none';
   });
-
+  // 카테고리 함수 변수에 두기
   const genre = await fetchCategory();
 
+  // 카테고리 별 드랍메뉴에  option값으로 넣어주기
   post_genre.innerHTML = '';
   for (let g of genre.category) {
     const option = document.createElement('option');
@@ -37,8 +38,10 @@ post_create_btnBtn.addEventListener('click', async () => {
     try {
       const post_title = document.getElementById('post_title').value;
       const post_body = document.getElementById('post_body').value;
+      // option 값 node로 전체 다 받아옴.
       const post_genre = document.querySelectorAll('.genre');
 
+      // option 값 배열로 만든 후 selected 값 필터로 구분 후 map 함수로 value 값 반환
       const selectedGenres = Array.from(post_genre)
         .filter((option) => {
           return option.selected;
@@ -50,13 +53,13 @@ post_create_btnBtn.addEventListener('click', async () => {
       if (!post_title || !post_body || !selectedGenres.length) {
         return alert('빈칸을 채워주세요');
       }
-
+      // 선택 된 값 genre에 넣어주기
       const newPost = {
         title: post_title,
         body: post_body,
         genre: selectedGenres[0],
       };
-
+      // 게시글 생성 api
       const response = await fetch('http://localhost:3000/api/auth/post', {
         method: 'POST',
         headers: {
@@ -66,12 +69,16 @@ post_create_btnBtn.addEventListener('click', async () => {
       });
 
       const responseData = await response.json();
-      console.log(responseData);
 
       post_modal.style.display = 'none';
+      alert(responseData.message);
       window.location.reload();
     } catch (error) {
       console.log(error);
     }
   });
 });
+
+// 게시글 수정
+
+// 게시글 삭제

@@ -41,43 +41,42 @@ const getPost = async (postId) => {
   const posts_container = document.getElementById('posts_container');
   posts_container.innerHTML = '';
 
+  const post_edit_btn = document.createElement('button');
+  post_edit_btn.classList.add('post_edit_btn');
+  post_edit_btn.innerHTML = '수정';
+  post_edit_btn.addEventListener('click', async () => {
+    const postId = post.post.postId;
+    const response = await fetch(
+      `http://localhost:3000/api/auth/post/${postId}`,
+      {
+        method: 'PUT',
+      },
+    );
+    const responseData = await response.json();
+    console.log(responseData);
+  });
+
+  const post_delete_btn = document.createElement('button');
+  post_delete_btn.classList.add('post_delete_btn');
+  post_delete_btn.innerHTML = '삭제';
+  // 게시글 삭제 api와 버튼 클릭 시 삭제
+  post_delete_btn.addEventListener('click', async () => {
+    const postId = post.post.postId;
+    const response = await fetch(
+      `http://localhost:3000/api/auth/post/${postId}`,
+      {
+        method: 'DELETE',
+      },
+    );
+    const responseData = await response.json();
+    alert(responseData.message);
+    window.location.reload();
+  });
+  // 상세 게시글 바탕 모달
   const post_modal = document.createElement('div');
-  post_modal.append(title, body, genre);
+  post_modal.append(title, body, genre, post_delete_btn, post_edit_btn);
   posts_container.append(post_modal);
 };
-
-// // 로그인 전 전체 게시글 조회
-// const getAllPosts = async () => {
-//   // 백엔드 posts api 가져오기
-//   const response = await fetch('http://localhost:3000/api/posts');
-//   const responseData = await response.json();
-//   const posts = responseData.data;
-//   // posts 카드 함수
-//   makePost(posts);
-// };
-
-// getAllPosts();
-
-// // 로그인 전 카테고리 별 포스트
-// const getCategoryPosts = async (category) => {
-//   // 백엔드 카테코리 조회 api 가져오기
-//   const response = await fetch(
-//     `http://localhost:3000/api/posts?category=${category}`,
-//   );
-//   const responsetData = await response.json();
-//   const posts = responsetData.data;
-
-//   const posts_container = document.getElementById('posts_container');
-//   posts_container.innerHTML = '';
-
-//   // posts가 빈 배열이면 밑에 메시지 반환
-//   if (posts === undefined) {
-//     return (posts_container.innerHTML = `해당 ${category}에 대한 게시글이 존재하지 않습니다.`);
-//   }
-
-//   // post 카드 함수
-//   makePost(posts);
-// };
 
 // // 로그인 후 카테고리 별 포스트
 // const getUserLoginCategoryPosts = async (category) => {
