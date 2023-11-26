@@ -58,12 +58,16 @@ button {
   border-bottom: 0.5px solid black;
   padding: 10px;
 }
-.post_title {
+.post_title_btn {
   font-size: 30px;
   margin-bottom: 10px;
   background: none;
   border: none;
 }
+.post_title {
+  color: white;
+}
+
 .post_body {
   font-size: 20px;
 }
