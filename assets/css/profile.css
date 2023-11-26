@@ -1,34 +1,33 @@
 .profile_cont_wrap {
-  width: 100%;
-  height: calc(100vh - 124px);
+  width: 1200px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 50px auto;
+  flex-direction: column;
 }
 .profile_cont_box {
-  width: 1200px;
+  width: 100%;
   background: #fff;
-  padding: 60px;
-  border-radius: 30px;
+  padding: 30px;
+  border-radius: 10px;
   box-shadow: 5px 5px 0 2px #3f2a2a;
 }
 .profile_cont_box .title {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .profile_cont_box .title h2 {
-  font-size: 36px;
+  font-size: 30px;
   font-weight: bold;
 }
 .profle_cont > p {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 20px;
+  margin-bottom: 10px;
   font-weight: bold;
-  line-height: 30px;
+  line-height: 24px;
 }
 .profile_edit {
   display: flex;
   justify-content: end;
-  margin-top: 100px;
+  margin-top: 50px;
 }
 .profile_edit button {
   margin-right: 10px;
@@ -39,4 +38,8 @@
 }
 .profile_edit button:hover {
   color: #ff9a69;
+}
+.mylist_wrap {
+  margin-top: 50px;
+  width: 100%;
 }

@@ -676,3 +676,65 @@ header .header_cont .btn_wrap button a {
 header .header_cont .btn_wrap button:hover a {
   color: #ff9a69;
 }
+
+/*리스트*/
+.list_tit {
+  display: inline-block;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0 2px #3f2a2a;
+}
+.list_cont {
+  display: flex;
+  flex-wrap: wrap;
+}
+.list_cont li {
+  width: 49.5%;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 0 2px #3f2a2a;
+  margin-right: 1%;
+  margin-bottom: 1%;
+  color: #333;
+  position: relative;
+}
+.list_cont li:nth-child(2n) {
+  margin-right: 0;
+}
+.list_cont li .title {
+  font-size: 18px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.list_cont li .content {
+  font-size: 18px;
+  line-height: 22px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+.list_cont li .genre {
+  font-size: 16px;
+  font-weight: bold;
+}
+.list_cont li .name {
+  font-size: 16px;
+  font-weight: bold;
+}
+.list_cont li a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

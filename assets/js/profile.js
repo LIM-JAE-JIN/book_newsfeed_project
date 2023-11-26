@@ -90,3 +90,34 @@ async function updateProfile(profileData) {
     console.error('프로필 수정 요청 중 오류 발생:', error);
   }
 }
+
+// 내글 리스트
+const lists = await fetchListeData();
+console.log(lists);
+const listWrap = document.querySelector("#list_cont");
+listWrap.innerHTML = lists.map(
+  (list) => `
+    <li>
+      <a href="/page/detail.html?postId=${list.postId}"></a>
+      <p class="title">${list.title}</p>
+      <p class="content">${list.body}</p>
+      <div style="display: flex; justify-content: space-between">
+        <p class="genre">장르: ${list.genre}</p>
+        <p class="name">작성자 : 나</p>
+      </div>
+    </li>`
+)
+  .join("");
+
+async function fetchListeData() {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+    }
+  };
+
+  const response = await fetch("http://localhost:3000/api/auth/mypage/posts", options);
+  const data = await response.json();
+  return data.data;
+}
