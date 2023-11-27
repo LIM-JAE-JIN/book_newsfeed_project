@@ -183,10 +183,12 @@ router.get('/auth/posts', authMiddleware, async (req, res) => {
 
   const category_posts = await Posts.findAll({
     where: { genre: category },
+    attributes: ['postId', 'title', 'body', 'genre'],
+    include: [{ model: Users, attributes: ['username', 'userId'] }],
   });
 
   const category_newsfeed = await category_posts.filter((post) => {
-    return userId !== post.userId;
+    return userId !== post.User.userId;
   });
   const newsfeed = await posts.filter((post) => {
     return userId !== post.User.userId;
