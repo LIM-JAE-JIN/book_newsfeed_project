@@ -39,7 +39,7 @@ const makePost = (posts) => {
 const getUserLoginCategoryPosts = async (category) => {
   // 백엔드 카테코리 조회 api 가져오기
   const response = await fetch(
-    `http://localhost:3000/api/auth/posts?category=${category}`,
+    `http://13.209.15.124/api/auth/posts?category=${category}`,
   );
   const responsetData = await response.json();
   const posts = responsetData.data;
@@ -61,7 +61,7 @@ const getUserLoginCategoryPosts = async (category) => {
 // 로그인 후 포스트 조회
 const getUserLoginPosts = async () => {
   // 백엔드 카테코리 조회 api 가져오기
-  const response = await fetch(`http://localhost:3000/api/auth/posts`);
+  const response = await fetch(`http://13.209.15.124/api/auth/posts`);
   const responsetData = await response.json();
   const posts = responsetData.data;
 
@@ -73,7 +73,7 @@ getUserLoginPosts();
 
 // 카테고리 가져오기
 const fetchCategory = async () => {
-  const response = await fetch(`http://localhost:3000/api/category`);
+  const response = await fetch(`http://13.209.15.124/api/category`);
   const responseData = await response.json();
   return responseData;
 };

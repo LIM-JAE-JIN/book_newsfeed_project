@@ -9,7 +9,7 @@ async function signin() {
   };
 
   // 서버로 데이터 전송
-  fetch('http://localhost:3000/api/auth/login', {
+  fetch('http://13.209.15.124/api/auth/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

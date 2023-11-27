@@ -109,7 +109,7 @@ const postDetail = async () => {
       };
 
       const response = await fetch(
-        `http://localhost:3000/api/auth/post/${postId}`,
+        `http://13.209.15.124/api/auth/post/${postId}`,
         {
           method: 'PUT',
           headers: {
@@ -135,7 +135,7 @@ const postDetail = async () => {
   post_delete_btn.addEventListener('click', async () => {
     const postId = detail.post.postId;
     const response = await fetch(
-      `http://localhost:3000/api/auth/post/${postId}`,
+      `http://13.209.15.124/api/auth/post/${postId}`,
       {
         method: 'DELETE',
       },
@@ -155,7 +155,7 @@ async function fetchDetailData(postId) {
     },
   };
   const response = await fetch(
-    `http://localhost:3000/api/post/${postId}`,
+    `http://13.209.15.124/api/post/${postId}`,
     options,
   );
   const data = await response.json();
@@ -167,7 +167,7 @@ postDetail();
 
 // 카테고리 가져오기
 const fetchCategory = async () => {
-  const response = await fetch(`http://localhost:3000/api/category`);
+  const response = await fetch(`http://13.209.15.124/api/category`);
   const responseData = await response.json();
   return responseData;
 };

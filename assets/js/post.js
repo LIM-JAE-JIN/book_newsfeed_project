@@ -59,7 +59,7 @@ post_create_btnBtn.addEventListener('click', async () => {
         genre: selectedGenres[0],
       };
       // 게시글 생성 api
-      const response = await fetch('http://localhost:3000/api/auth/post', {
+      const response = await fetch('http://13.209.15.124/api/auth/post', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

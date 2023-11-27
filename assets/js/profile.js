@@ -17,7 +17,7 @@ function drPopupClose(im) {
 
 // 내 프로필 조회
 const profileData = await fetchProfilelData();
-const profileCont = document.querySelector("#profileCont");
+const profileCont = document.querySelector('#profileCont');
 
 profileCont.innerHTML = `
   <p>계정 : <span class="email">${profileData.data.email}</span></p>
@@ -26,14 +26,17 @@ profileCont.innerHTML = `
     인사말 :
     <span class="introduce">${profileData.data.introduce}</span>
   </p>
-  <p>가입날짜 : <span class="created_at">${profileData.data.createdAt.slice(0, 10)}</span></p>`;
+  <p>가입날짜 : <span class="created_at">${profileData.data.createdAt.slice(
+    0,
+    10,
+  )}</span></p>`;
 
 async function fetchProfilelData() {
   const options = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      accept: "application/json"
-    }
+      accept: 'application/json',
+    },
   };
 
   const response = await fetch(`http://localhost:3000/api/mypage`, options);
@@ -49,16 +52,23 @@ $('#editBtn').on('click', async function () {
   const editInput = {
     password: password,
     username: username,
-    introduce: introduce
+    introduce: introduce,
   };
   const profileEditData = await updateProfile(editInput);
-  profileCont.innerHTML = `<p>계정 : <span class="email">${profileEditData.data.email}</span></p>
-    <p>닉네임 : <span class="username">${profileEditData.data.username}</span></p>
+  profileCont.innerHTML = `<p>계정 : <span class="email">${
+    profileEditData.data.email
+  }</span></p>
+    <p>닉네임 : <span class="username">${
+      profileEditData.data.username
+    }</span></p>
     <p>
       인사말 :
       <span class="introduce">${profileEditData.data.introduce}</span>
     </p>
-    <p>가입날짜 : <span class="created_at">${profileEditData.data.createdAt.slice(0, 10)}</span></p>`;
+    <p>가입날짜 : <span class="created_at">${profileEditData.data.createdAt.slice(
+      0,
+      10,
+    )}</span></p>`;
   document.getElementById('username').value = '';
   document.getElementById('introduce').value = '';
   document.getElementById('password').value = '';
@@ -94,9 +104,10 @@ async function updateProfile(profileData) {
 // 내글 리스트
 const lists = await fetchListeData();
 console.log(lists);
-const listWrap = document.querySelector("#list_cont");
-listWrap.innerHTML = lists.map(
-  (list) => `
+const listWrap = document.querySelector('#list_cont');
+listWrap.innerHTML = lists
+  .map(
+    (list) => `
     <li>
       <a href="/page/detail.html?postId=${list.postId}"></a>
       <p class="title">${list.title}</p>
@@ -105,19 +116,22 @@ listWrap.innerHTML = lists.map(
         <p class="genre">장르: ${list.genre}</p>
         <p class="name">작성자 : 나</p>
       </div>
-    </li>`
-)
-  .join("");
+    </li>`,
+  )
+  .join('');
 
 async function fetchListeData() {
   const options = {
-    method: "GET",
+    method: 'GET',
     headers: {
-      accept: "application/json",
-    }
+      accept: 'application/json',
+    },
   };
 
-  const response = await fetch("http://localhost:3000/api/auth/mypage/posts", options);
+  const response = await fetch(
+    'http://13.209.15.124/api/auth/mypage/posts',
+    options,
+  );
   const data = await response.json();
   return data.data;
 }
