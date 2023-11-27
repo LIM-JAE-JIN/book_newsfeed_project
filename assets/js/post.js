@@ -1,6 +1,6 @@
 // 카테고리 가져오기
 const fetchCategory = async () => {
-  const response = await fetch(`http://localhost:3000/api/category`);
+  const response = await fetch(`http://13.209.15.124/api/category`);
   const responseData = await response.json();
   return responseData;
 };

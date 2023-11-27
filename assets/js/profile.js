@@ -39,7 +39,7 @@ async function fetchProfilelData() {
     },
   };
 
-  const response = await fetch(`http://localhost:3000/api/mypage`, options);
+  const response = await fetch(`http://13.209.15.124/api/mypage`, options);
   const data = await response.json();
   return data;
 }
@@ -83,7 +83,7 @@ async function updateProfile(profileData) {
       },
       body: JSON.stringify(profileData),
     };
-    const response = await fetch('http://localhost:3000/api/mypage', options);
+    const response = await fetch('http://13.209.15.124/api/mypage', options);
     const data = await response.json();
 
     if (data.success) {
