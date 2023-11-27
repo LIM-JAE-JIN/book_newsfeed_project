@@ -103,7 +103,6 @@ async function updateProfile(profileData) {
 
 // 내글 리스트
 const lists = await fetchListeData();
-console.log(lists);
 const listWrap = document.querySelector('#list_cont');
 listWrap.innerHTML = lists
   .map(

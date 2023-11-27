@@ -142,7 +142,7 @@ const postDetail = async () => {
     );
     const responseData = await response.json();
     alert(responseData.message);
-    window.location.reload();
+    window.location.href = 'http://13.209.15.124/page/mypage.html';
   });
 };
 
