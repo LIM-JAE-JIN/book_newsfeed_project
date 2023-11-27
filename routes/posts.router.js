@@ -178,7 +178,7 @@ router.get('/auth/posts', authMiddleware, async (req, res) => {
 
   const posts = await Posts.findAll({
     attributes: ['postId', 'title', 'body', 'genre'],
-    include: [{ model: Users, attributes: ['username'] }],
+    include: [{ model: Users, attributes: ['username', 'userId'] }],
   });
 
   const category_posts = await Posts.findAll({
@@ -188,9 +188,8 @@ router.get('/auth/posts', authMiddleware, async (req, res) => {
   const category_newsfeed = await category_posts.filter((post) => {
     return userId !== post.userId;
   });
-
   const newsfeed = await posts.filter((post) => {
-    return userId !== post.userId;
+    return userId !== post.User.userId;
   });
 
   if (category === null) {
