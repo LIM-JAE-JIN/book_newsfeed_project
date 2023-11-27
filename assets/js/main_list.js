@@ -28,7 +28,7 @@ const makePost = (posts) => {
       <p class="content">${post.body}</p>
       <div style="display: flex; justify-content: space-between">
         <p class="genre">장르: ${post.genre}</p>
-        <p class="name">작성자 : ${post.userId}</p>
+        <p class="name">작성자 : ${post.User.username}</p>
       </div>
     </li>`,
     )
@@ -60,7 +60,7 @@ const getUserLoginCategoryPosts = async (category) => {
 
 // 로그인 후 포스트 조회
 const getUserLoginPosts = async () => {
-  // 백엔드 카테코리 조회 api 가져오기
+  // 백엔드 조회 api 가져오기
   const response = await fetch(`http://13.209.15.124/api/auth/posts`);
   const responsetData = await response.json();
   const posts = responsetData.data;

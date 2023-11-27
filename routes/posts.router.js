@@ -3,7 +3,7 @@ import express from 'express';
 import model from '../models/index.cjs';
 import authMiddleware from '../middlewares/auth-middleware.js';
 
-const { Posts } = model;
+const { Posts, Users } = model;
 const router = express.Router();
 
 // 게시글 생성
@@ -176,7 +176,10 @@ router.get('/auth/posts', authMiddleware, async (req, res) => {
   const category = req.query.category ? req.query.category.toLowerCase() : null;
   const { userId } = res.locals.user;
 
-  const posts = await Posts.findAll();
+  const posts = await Posts.findAll({
+    attributes: ['postId', 'title', 'body', 'genre'],
+    include: [{ model: Users, attributes: ['username'] }],
+  });
 
   const category_posts = await Posts.findAll({
     where: { genre: category },
